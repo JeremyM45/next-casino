@@ -4,23 +4,34 @@ import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
 
 const BlackJack = () => {
-  const [cards, setCards] = useState([{}])
-  const [showCard, setShowCard] = useState(false)
 
-  function handleHit(){
-    setShowCard(true)
+  const [hand, setHand] = useState([])
+  
+  async function getCard(){
+    const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
+    return await res.json()
   }
-  function updateHand(card){
-    setCards(currentCards => [...currentCards, card.cards[0]])
-  }
+
+  const {refetch} = useQuery(['card'], getCard, {
+    enabled: false,
+    refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      setHand(currentCardsInHand => [...currentCardsInHand, data.cards[0]])
+    }
+  })
+
   useEffect(() => {
-    console.log(cards)
-  }, [cards])
+    console.log(hand)
+  }, [hand])
 
   return (
     <div>
-      <Button onClick={handleHit} variant="success">Hit</Button>
-      {showCard ? <Card updateHand={updateHand}/> : null}
+      <Button onClick={refetch} variant="success">Hit</Button>
+      {hand.map((card, index) => {
+        return(
+          <Card key={index} imgSrc={card.images.svg}/>
+        )
+      })}
     </div>
   )
 }
