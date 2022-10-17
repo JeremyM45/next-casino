@@ -4,13 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
 
 
-const Player = ({playerHand, updateHand, value}) => {
-
-  const [bust, setBust] = useState(false);
-  const [blackJack, setBlackJack] = useState(false);
-  const [holding, setHolding] = useState(false);
-
-  console.log(playerHand)
+const Player = ({playerHand, updateHand, value, endText, updateEndText}) => {
 
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
@@ -27,21 +21,21 @@ const Player = ({playerHand, updateHand, value}) => {
   })
   
   const handleHit = () => {
-    if(!bust && !blackJack && !holding){
+    if(endText === ''){
       refetch()
     }
   }
 
   const handleHold = () => {
-    setHolding(true)
+    updateEndText('holding')
   }
 
   const bustCheck = () => {
-    if(value > 21) setBust(true)
+    if(value > 21) updateEndText('bust')
   }
 
   const blackJackCheck = () => {
-    if(value === 21) setBlackJack(true)
+    if(value === 21) updateEndText('blackJack')
   }
   
   useEffect(() => {
@@ -53,9 +47,9 @@ const Player = ({playerHand, updateHand, value}) => {
   return (
     <div>
       <h1>Value: {value}</h1>
-      {bust ? <h1 className='text-danger text-center'>BUST</h1> : null}
-      {blackJack ? <h1 className='text-warning text-center'>BLACK JACK</h1> : null}
-      {holding ? <h1 className='text-primary text-center'>Holding</h1> : <Button onClick={handleHold} variant="danger">Hold</Button>}
+      {endText === 'bust' ? <h1 className='text-danger text-center'>BUST</h1> : null}
+      {endText === 'blackJack' ? <h1 className='text-warning text-center'>BLACK JACK</h1> : null}
+      {endText === 'holding' ? <h1 className='text-primary text-center'>Holding</h1> : <Button onClick={handleHold} variant="danger">Hold</Button>}
       <Button onClick={handleHit} variant="success">Hit</Button>
       
       {playerHand?.map((card, index) => {

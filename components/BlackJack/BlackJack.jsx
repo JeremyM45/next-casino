@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
-import Card from './Card'
+import Dealer from './Dealer'
 import Player from './Player'
 
 const BlackJack = () => {
 
   const [playerHand, setPlayerHand] = useState([])
+  const [dealerHand, setDealerHand] = useState([])
   const [playerHandValue, setPlayerHandValue] = useState(0)
+  const [dealerHandValue, setDealerHandValue] = useState(0)
+  const [endText, setEndText] = useState('')
   
   const clearData = () => {
     setPlayerHand([])
+    setDealerHand([])
     setPlayerHandValue(0)
+    setEndText('')
     refetch()
   }
   async function dealCards(){
@@ -25,6 +30,7 @@ const BlackJack = () => {
     onSuccess: (d) => {
       console.log('test')
       setPlayerHand([d.cards[0], d.cards[1]])
+      setDealerHand([d.cards[2], d.cards[3]])
     }
   })
   
@@ -32,9 +38,9 @@ const BlackJack = () => {
     setPlayerHand(currentHand => [...currentHand, value])
   }
 
-  const evaluateHand = () => {
+  const evaluateHand = (hand) => {
     const value = 0
-    playerHand.map((card) => {
+    hand.map((card) => {
       if(card.value === 'JACK' || card.value === 'QUEEN' || card.value === 'KING') {
         value += 10
       }
@@ -44,15 +50,17 @@ const BlackJack = () => {
         value += parseInt(card.value)
       }
     })
-    if(value > 21 && playerHand.filter(e => e.value === 'ACE').length > 0){
+    if(value > 21 && hand.filter(e => e.value === 'ACE').length > 0){
       value -= 10
     }
-    setPlayerHandValue(value)
+    return value
   }
 
   useEffect(() => {
-    evaluateHand()
-  }, [playerHand])
+    
+    setPlayerHandValue(evaluateHand(playerHand))
+    setDealerHandValue(evaluateHand(dealerHand))
+  }, [playerHand, dealerHand])
 
   useEffect(() => {
     console.log(playerHandValue)
@@ -61,7 +69,9 @@ const BlackJack = () => {
   return (
     <div className='mb-4'>
       <Button onClick={clearData} className="btn">New Game</Button>
-      <Player playerHand={playerHand} updateHand={updateHand} value={playerHandValue}/>
+      <Dealer dealerHand={dealerHand} value={dealerHandValue}/>
+      <Player playerHand={playerHand} updateHand={updateHand} value={playerHandValue} endText={endText} updateEndText={setEndText}/>
+      
     </div>
   )
 }
