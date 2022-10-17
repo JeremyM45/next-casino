@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import Login from '../components/Forms/login'
 import Signup from '../components/Forms/signup'
 import { useState } from 'react'
+import BlackJack from '../components/BlackJack/BlackJack'
 
 export default function Home() {
   const { user, logOut } = useAuth()
@@ -37,18 +38,17 @@ export default function Home() {
         </Head>
         <main className={styles.main}>
           {user ? (
-            <Button 
-              varient="alert"
-              onClick={() => {
-                logOut()
-              }}
-            >Logout</Button>
+            <>
+            <BlackJack />
+            <Button varient="alert" onClick={() => {logOut()}}>Logout</Button>
+            </>
+            
           ) : (
             <>
               {logInVisable || signUpVisable ? null : 
                 <>
                   <Button  varient="primary" onClick={handleShowLogIn}>Login</Button>
-                  <Button  varient="success" onClick={handleShowSignUp}>Signup</Button>
+                  <Button  variant="success" onClick={handleShowSignUp}>Signup</Button>
                 </>
               }
               {logInVisable ? <Login handleShowLogin={handleShowSignUp} handleClose={handleClose} /> : null}

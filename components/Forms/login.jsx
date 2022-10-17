@@ -56,7 +56,7 @@ const Login = ({ handleShowLogin, handleClose }) => {
         </Form.Group>
         
         <Button type="submit" variant="primary">Log In</Button>
-        <Button onClick={handleShowLogin} variant="primary">Sign Up</Button>
+        <Button onClick={handleShowLogin} variant="success">Sign Up</Button>
       </Form>
     </Container>
   )

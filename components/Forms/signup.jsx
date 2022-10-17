@@ -52,7 +52,7 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
           />
         </Form.Group>
         
-        <Button type="submit" variant="primary">Sign Up</Button>
+        <Button type="submit" variant="success">Sign Up</Button>
         <Button onClick={handleShowSignIn} variant="primary">Log In</Button>
       </Form>
     </Container>
