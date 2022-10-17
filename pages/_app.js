@@ -4,6 +4,7 @@ import { AuthContextProvider } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import { ProtectedRoute } from '../components/ProtectedRoute'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient()
 const noAuthPages = ['/signup', '/login']
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
       )} */}
     <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     </AuthContextProvider>
   )
