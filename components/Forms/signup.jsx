@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
-const Signup = () => {
+const Signup = ({ handleShowSignIn, handleClose }) => {
   const{user, signUp} = useAuth()
   
   const [data, setData] = useState({
@@ -14,6 +14,7 @@ const Signup = () => {
     e.preventDefault()
     try{
       await signUp(data.email, data.password)
+      handleClose()
     } catch(err){
       console.log(err)
     }
@@ -52,6 +53,7 @@ const Signup = () => {
         </Form.Group>
         
         <Button type="submit" variant="primary">Sign Up</Button>
+        <Button onClick={handleShowSignIn} variant="primary">Log In</Button>
       </Form>
     </Container>
   )

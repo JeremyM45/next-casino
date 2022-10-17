@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
-const Login = () => {
+const Login = ({ handleShowLogin, handleClose }) => {
   const{user, logIn} = useAuth()
   const router = useRouter()
   const [data, setData] = useState({
@@ -14,8 +14,9 @@ const Login = () => {
   const handleLogIn = async (e) => {
     e.preventDefault()
     try{
+      
       await logIn(data.email, data.password)
-      router.push('/')
+      handleClose()
     } catch(err){
       console.log(err)
     }
@@ -55,6 +56,7 @@ const Login = () => {
         </Form.Group>
         
         <Button type="submit" variant="primary">Log In</Button>
+        <Button onClick={handleShowLogin} variant="primary">Sign Up</Button>
       </Form>
     </Container>
   )

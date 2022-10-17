@@ -10,14 +10,14 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <AuthContextProvider>
-      {noAuthPages.includes(router.pathname) ? (
+      {/* {noAuthPages.includes(router.pathname) ? (
         <Component {...pageProps} />
       ) : (
         <ProtectedRoute>
           <Component {...pageProps} />
         </ProtectedRoute>
-      )}
-      
+      )} */}
+      <Component {...pageProps} />
     </AuthContextProvider>
   )
 }
