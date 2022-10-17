@@ -4,14 +4,14 @@ import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
 
 
-const Player = ({playerHand, updateHand, value, endText, updateEndText}) => {
+const Player = ({playerHand, updateHand, value, endText, updateEndText, onHolding}) => {
 
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
     return await res.json()
   }
   
-  const {refetch} = useQuery(['hit'], getCard, {
+  const {refetch} = useQuery(['playerHit'], getCard, {
     enabled: false,
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
@@ -28,6 +28,7 @@ const Player = ({playerHand, updateHand, value, endText, updateEndText}) => {
 
   const handleHold = () => {
     updateEndText('holding')
+    onHolding()
   }
 
   const bustCheck = () => {

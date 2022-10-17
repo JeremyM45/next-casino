@@ -10,11 +10,13 @@ const BlackJack = () => {
   const [dealerHand, setDealerHand] = useState([])
   const [playerHandValue, setPlayerHandValue] = useState(0)
   const [dealerHandValue, setDealerHandValue] = useState(0)
+  const [playerTurn, setPlayerTurn] = useState(true)
   const [endText, setEndText] = useState('')
   
   const clearData = () => {
     setPlayerHand([])
     setDealerHand([])
+    setPlayerTurn(true)
     setPlayerHandValue(0)
     setEndText('')
     refetch()
@@ -34,8 +36,16 @@ const BlackJack = () => {
     }
   })
   
-  const updateHand = (value) => {
+  const updatePlayerHand = (value) => {
     setPlayerHand(currentHand => [...currentHand, value])
+  }
+
+  const updateDealerHand = (value) => {
+    setDealerHand(currentHand => [...currentHand, value])
+  }
+
+  const updateTurn = () => {
+    setPlayerTurn(false);
   }
 
   const evaluateHand = (hand) => {
@@ -69,8 +79,8 @@ const BlackJack = () => {
   return (
     <div className='mb-4'>
       <Button onClick={clearData} className="btn">New Game</Button>
-      <Dealer dealerHand={dealerHand} value={dealerHandValue}/>
-      <Player playerHand={playerHand} updateHand={updateHand} value={playerHandValue} endText={endText} updateEndText={setEndText}/>
+      <Dealer dealerHand={dealerHand} value={dealerHandValue} playerHandValue={playerHandValue} canDraw={!playerTurn} updateHand={updateDealerHand}/>
+      <Player playerHand={playerHand} updateHand={updatePlayerHand} value={playerHandValue} endText={endText} updateEndText={setEndText} onHolding={updateTurn}/>
       
     </div>
   )
