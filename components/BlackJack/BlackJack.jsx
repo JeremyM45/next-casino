@@ -12,6 +12,7 @@ const BlackJack = () => {
   const [dealerHand, setDealerHand] = useState([])
   const [playerHandValue, setPlayerHandValue] = useState(0)
   const [dealerHandValue, setDealerHandValue] = useState(0)
+  const [hiddenCard, setHiddenCard] = useState({})
   const [playerState, setPlayerState] = useState('')
   const [dealerState, setDealerState] = useState('')
   const [endGameText, setEndGameText] = useState('')
@@ -42,7 +43,12 @@ const BlackJack = () => {
     refetchOnWindowFocus: false,
     onSuccess: async (d) => {
       setPlayerHand([d.cards[0], d.cards[1]])
-      setDealerHand([d.cards[2], d.cards[3]])
+      if(evaluateHand([d.cards[2], d.cards[3]]) === 21) {
+        setDealerHand([d.cards[2], d.cards[3]])
+      } else {
+        setDealerHand([d.cards[2]])
+        setHiddenCard(d.cards[3])
+      }
       console.log(d.remaining)
       if(d.remaining < 52){
         await shuffleCards()
@@ -109,14 +115,15 @@ const BlackJack = () => {
 
   useEffect(() => {
     if(playerState === 'Bust' || playerState === 'Black Jack'){
+      updateDealerHand(hiddenCard)
       setCanClick(false)
       setEndGameText(displayWinner())
     } else if(playerState === 'Holding'){
+      updateDealerHand(hiddenCard)
       setCanClick(false)
       handleDealerState('dealing')
     }
   }, [playerState])
-
 
   return (
     <div className='mb-4'>

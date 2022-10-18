@@ -68,7 +68,7 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
       )}
       {playerHand?.map((card, index) => {
         return(
-          <Card key={index} imgSrc={card.images.svg}/>
+          <Card key={index} imgSrc={card.images.png}/>
         )
       })}
     </div>

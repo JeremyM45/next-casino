@@ -51,8 +51,16 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
     <div>
       <h1>Value: {value}</h1>
       {dealerHand?.map((card, index) => {
+        if(dealerHand.length === 1){
+          return(
+            <div>
+              <Card key={index} imgSrc={card.images.png}/>
+              <Card imgSrc={'/card-back-red.webp'}/>
+            </div>
+          )
+        }
         return(
-          <Card key={index} imgSrc={card.images.svg}/>
+          <Card key={index} imgSrc={card.images.png}/>
         )
       })}
     </div>
