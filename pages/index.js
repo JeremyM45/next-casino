@@ -45,7 +45,7 @@ export default function Home() {
         <main className={styles.main}>
           {user ? (
             <>
-              {shownGame === 'BlackJack' ? <BlackJack /> : null}
+              {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange}/> : null}
               <Button varient="alert" onClick={() => {logOut()}}>Logout</Button>
             </>
             

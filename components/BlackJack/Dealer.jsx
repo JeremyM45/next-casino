@@ -41,9 +41,10 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   }, [value])
 
   return (
-    <div>
+    <div className='text-center'>
+      <h1>Dealer</h1>
       <h1>Value: {value}</h1>
-      <div className="row row-cols-4 gx-1">
+      <div className="justify-content-center row row-cols-4 gx-1">
         {dealerHand?.map((card, index) => {
           return(
             <div key={index}>

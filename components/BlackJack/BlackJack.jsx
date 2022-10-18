@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 import Dealer from './Dealer'
 import Player from './Player'
 import { useAuth } from "../../context/AuthContext";
+import EndGameModal from './EndGameModal'
 
-const BlackJack = () => {
+const BlackJack = ({ changeShownGame }) => {
   const { user } = useAuth()
   const [canClick, setCanClick] = useState(true)
   const [playerHand, setPlayerHand] = useState([])
@@ -132,8 +133,16 @@ const BlackJack = () => {
 
   return (
     <div className='container mb-4'>
-      <Button onClick={clearData} className="btn">New Game</Button>
-      {endGameText != '' ? endGameText : null}
+      {endGameText != '' ? (
+        <EndGameModal 
+          newGameClear={clearData} 
+          changeShownGame={changeShownGame} 
+          endGameText={endGameText}
+          playerHandValue={playerHandValue}
+          dealerHandValue={dealerHandValue}
+          userName={user.email}
+        /> ) : null}
+
         <Dealer 
           dealerHand={dealerHand} 
           value={dealerHandValue} 
@@ -149,6 +158,7 @@ const BlackJack = () => {
           playerState={playerState} 
           updatePlayerState={handlePlayerState} 
           canClick={canClick}
+          userName={user.email}
         />
       
     </div>

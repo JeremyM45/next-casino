@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
 
 
-const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, canClick}) => {
+const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, canClick, userName}) => {
   const [playerStateText, setPlayerStateText] = useState()
 
   async function getCard(){
@@ -56,7 +56,8 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
   }, [value])
 
   return (
-    <div>
+    <div className='text-center'>
+      <h1>{userName}</h1>
       <h1>Value: {value}</h1>
       {canClick ? (
         <div>
@@ -68,7 +69,7 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
           {playerStateText}
         </div>
       )}
-      <div className="row row-cols-4 gx-1">
+      <div className="justify-content-center row row-cols-4 gx-1">
         {playerHand?.map((card, index) => {
           return(
             <div key={index}>
