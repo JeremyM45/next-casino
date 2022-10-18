@@ -44,16 +44,16 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
     <div className='text-center'>
       <h1>Dealer</h1>
       <h1>Value: {value}</h1>
-      <div className="justify-content-center row row-cols-4 gx-1">
+      <div className="justify-content-center row">
         {dealerHand?.map((card, index) => {
           return(
-            <div key={index}>
+            <div key={index} className='col-auto'>
               <Card imgSrc={card.images.png}/>
             </div>
             
           )
         })}
-        {dealerHand.length === 1 ? <div><Card imgSrc={'/card-back-red.webp'}/></div> : null}
+        {dealerHand.length === 1 ? <div className='col-auto'><Card imgSrc={'/card-back-red.webp'}/></div> : null}
       </div>
     </div>
   )

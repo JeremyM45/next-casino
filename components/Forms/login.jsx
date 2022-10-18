@@ -1,11 +1,10 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
+import Modal from 'react-bootstrap/Modal';
 
 const Login = ({ handleShowLogin, handleClose }) => {
   const{user, logIn} = useAuth()
-  const router = useRouter()
   const [data, setData] = useState({
     email: '',
     password: ''
@@ -24,9 +23,16 @@ const Login = ({ handleShowLogin, handleClose }) => {
   
   
   return (
-    <Container>
-      <h1>Log In</h1>
-      <Form onSubmit={handleLogIn}>
+    <Modal
+        show={true}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>Log In</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form onSubmit={handleLogIn}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email Address</Form.Label>
           <Form.Control 
@@ -54,11 +60,16 @@ const Login = ({ handleShowLogin, handleClose }) => {
           }
           />
         </Form.Group>
-        
         <Button type="submit" variant="primary">Log In</Button>
-        <Button onClick={handleShowLogin} variant="success">Sign Up</Button>
+        
       </Form>
-    </Container>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <p>Don't have an account?</p>
+          <Button onClick={handleShowLogin} variant="success">Sign Up</Button>
+        </Modal.Footer>
+      </Modal>
   )
 }
 

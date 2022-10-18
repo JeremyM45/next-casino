@@ -42,11 +42,13 @@ export default function Home() {
       </Head>
       <Navbar changeShownGame={handelShowGameChange}/>
       <div className={styles.container}>
-        <main className={styles.main}>
+        <main className='border border-danger'>
           {user ? (
             <>
+            <div className='container border border-primary h-0'>
               {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange}/> : null}
-              <Button varient="alert" onClick={() => {logOut()}}>Logout</Button>
+            </div>
+              <Button className='justify-content-center' varient="alert" onClick={() => {logOut()}}>Logout</Button>
             </>
             
           ) : (
@@ -64,9 +66,6 @@ export default function Home() {
           )}
         </main>
       </div>
-    <footer className={styles.footer}>
-
-    </footer>
   </>
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
+import styles from '../../styles/BlackJack.module.css'
 import { useQuery } from '@tanstack/react-query'
 import Dealer from './Dealer'
 import Player from './Player'
@@ -97,12 +97,27 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   const displayWinner = () => {
+    let bust = ''
+    if(playerHandValue > 21){bust = <h1>{user.email} Busts</h1>}
+    if(dealerHandValue > 21){bust = <h1>Dealer Busts</h1>}
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
-      return (<h1>The Dealer Wins</h1>)
+      return (
+      <>
+        {bust}
+        <h1>The Dealer Wins</h1>
+      </>)
     } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
-      return (<h1>{user.email} Wins</h1>)
+      return (
+      <>
+        {bust}
+        <h1>{user.email} Wins</h1>
+      </>)
     } else{
-      return (<h1>Tie Game</h1>)
+      return (
+      <>
+        {bust}
+        <h1>Tie Game</h1>
+      </>)
     }
   }
 
@@ -142,25 +157,29 @@ const BlackJack = ({ changeShownGame }) => {
           dealerHandValue={dealerHandValue}
           userName={user.email}
         /> ) : null}
-
-        <Dealer 
-          dealerHand={dealerHand} 
-          value={dealerHandValue} 
-          playerHandValue={playerHandValue} 
-          dealerState={dealerState} 
-          handleDealerState={handleDealerState} 
-          updateHand={updateDealerHand} 
-        />
-        <Player 
-          playerHand={playerHand}
-          updateHand={updatePlayerHand}
-          value={playerHandValue} 
-          playerState={playerState} 
-          updatePlayerState={handlePlayerState} 
-          canClick={canClick}
-          userName={user.email}
-        />
-      
+        <div className={`border border-secondary ${styles.game}`}>
+          <div className={`border border-warning ${styles.dealer}`}>
+            <Dealer 
+              dealerHand={dealerHand} 
+              value={dealerHandValue} 
+              playerHandValue={playerHandValue} 
+              dealerState={dealerState} 
+              handleDealerState={handleDealerState} 
+              updateHand={updateDealerHand} 
+            />
+          </div>
+          <div className={`border border-danger ${styles.player}`}>
+            <Player 
+              playerHand={playerHand}
+              updateHand={updatePlayerHand}
+              value={playerHandValue} 
+              playerState={playerState} 
+              updatePlayerState={handlePlayerState} 
+              canClick={canClick}
+              userName={user.email}
+            />
+          </div>
+        </div>
     </div>
   )
 }

@@ -5,7 +5,7 @@ const Card = ({imgSrc}) => {
 
   return (
     <>
-      <Image height={400} width={300} src={imgSrc}/>
+      <Image height={150} width={100} src={imgSrc}/>
     </>
   )
 }
