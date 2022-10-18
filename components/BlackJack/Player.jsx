@@ -71,8 +71,8 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
       <div className="row row-cols-4 gx-1">
         {playerHand?.map((card, index) => {
           return(
-            <div>
-              <Card key={index} imgSrc={card.images.png}/>
+            <div key={index}>
+              <Card  imgSrc={card.images.png}/>
             </div>
             
           )
