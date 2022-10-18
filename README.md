@@ -33,4 +33,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
- 
+ ## Known Bugs
+
+When both the player and dealer are dealt a perfect 21 upon the inital deal the dealer will still draw a new card. The game is still correctly ending as a tie regardless of the dealers 3rd card. 
