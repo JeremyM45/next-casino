@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import Card from "./Card"
 import { useQuery } from '@tanstack/react-query'
 
-const Dealer = ({dealerHand, value, playerHandValue, canDraw, updateHand}) => {
+const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, handleDealerState}) => {
   
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
@@ -22,8 +22,6 @@ const Dealer = ({dealerHand, value, playerHandValue, canDraw, updateHand}) => {
       return false
     } else if(value < playerHandValue) {
       return true
-    } else if(value < 16) {
-      return true
     } else {
       return false
     }
@@ -31,15 +29,22 @@ const Dealer = ({dealerHand, value, playerHandValue, canDraw, updateHand}) => {
   }
 
   useEffect(() => {
-    if(canDraw && shouldHit()){
+    if(dealerState === 'dealing' && shouldHit()){
       refetch()
-    } 
-  }, [canDraw])
+    } else if(dealerState === 'dealing'){
+      handleDealerState('done')
+    }
+  }, [dealerState])
   
   useEffect(() => {
-    if(canDraw && shouldHit()){
+    if(dealerState === 'dealing' && shouldHit()){
       refetch()
-    } 
+    } else if(dealerState === 'dealing'){
+      handleDealerState('done')
+    }
+    if(dealerState === '' && value === 21) {
+      handleDealerState('Black Jack')
+    }
   }, [value])
 
   return (

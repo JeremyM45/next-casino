@@ -11,28 +11,43 @@ const BlackJack = () => {
   const [playerHandValue, setPlayerHandValue] = useState(0)
   const [dealerHandValue, setDealerHandValue] = useState(0)
   const [playerTurn, setPlayerTurn] = useState(true)
-  const [endText, setEndText] = useState('')
+  const [playerState, setPlayerState] = useState('')
+  const [dealerState, setDealerState] = useState('')
+  const [turnOver, setTurnOver] = useState(false)
+  const [endGameText, setEndGameText] = useState('')
+  
   
   const clearData = () => {
     setPlayerHand([])
     setDealerHand([])
+    setPlayerState('')
+    setEndGameText('')
+    setDealerState('')
     setPlayerTurn(true)
+    setTurnOver(false)
     setPlayerHandValue(0)
-    setEndText('')
     refetch()
   }
+
   async function dealCards(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=4')
-    
+    return await res.json()
+  }
+
+  async function shuffleCards(){
+    const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/shuffle/')
     return await res.json()
   }
 
   const {refetch} = useQuery(['deal'], dealCards, {
     refetchOnWindowFocus: false,
-    onSuccess: (d) => {
-      console.log('test')
+    onSuccess: async (d) => {
       setPlayerHand([d.cards[0], d.cards[1]])
       setDealerHand([d.cards[2], d.cards[3]])
+      console.log(d.remaining)
+      if(d.remaining < 52){
+        await shuffleCards()
+      }
     }
   })
   
@@ -46,6 +61,18 @@ const BlackJack = () => {
 
   const updateTurn = () => {
     setPlayerTurn(false);
+  }
+
+  const handleTurnOver = () => {
+    setTurnOver(true)
+  }
+
+  const handlePlayerState = (newPlayerState) => {
+    setPlayerState(newPlayerState)
+  }
+
+  const handleDealerState = (newDealerState) => {
+    setDealerState(newDealerState)
   }
 
   const evaluateHand = (hand) => {
@@ -66,22 +93,59 @@ const BlackJack = () => {
     return value
   }
 
+  const displayWinner = () => {
+    if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
+      return (<h1>Dealer Wins</h1>)
+    } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
+      return (<h1>Player Wins</h1>)
+    } else{
+      return (<h1>Tie Game</h1>)
+    }
+  }
+
   useEffect(() => {
-    
     setPlayerHandValue(evaluateHand(playerHand))
     setDealerHandValue(evaluateHand(dealerHand))
+    
   }, [playerHand, dealerHand])
 
   useEffect(() => {
-    console.log(playerHandValue)
-  }, [playerHandValue])
+    if(dealerState === 'done' || dealerState === 'Black Jack'){
+      console.log('test')
+      setEndGameText(displayWinner())
+    }
+  }, [dealerState])
+
+  useEffect(() => {
+    if(playerState === 'Bust' || playerState === 'Black Jack'){
+      setEndGameText(displayWinner())
+    } else if(playerState === 'Holding'){
+      console.log('test state')
+      handleDealerState('dealing')
+    }
+  }, [playerState])
+
 
   return (
     <div className='mb-4'>
       <Button onClick={clearData} className="btn">New Game</Button>
-      <Dealer dealerHand={dealerHand} value={dealerHandValue} playerHandValue={playerHandValue} canDraw={!playerTurn} updateHand={updateDealerHand}/>
-      <Player playerHand={playerHand} updateHand={updatePlayerHand} value={playerHandValue} endText={endText} updateEndText={setEndText} onHolding={updateTurn}/>
-      
+      {endGameText != '' ? endGameText : null}
+      <Dealer 
+        dealerHand={dealerHand} 
+        value={dealerHandValue} 
+        playerHandValue={playerHandValue} 
+        dealerState={dealerState} 
+        handleDealerState={handleDealerState} 
+        updateHand={updateDealerHand} 
+      />
+      <Player 
+        playerHand={playerHand}
+        updateHand={updatePlayerHand}
+        value={playerHandValue} 
+        playerState={playerState} 
+        updatePlayerState={handlePlayerState} 
+        onHolding={updateTurn}
+      />
     </div>
   )
 }
