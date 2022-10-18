@@ -20,24 +20,17 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   const shouldHit = () => {
     if(value >= 21){
       return false
-    } else if(value < playerHandValue) {
+    } else if(value < playerHandValue || value < 16 && value === playerHandValue) {
       return true
     } else {
       return false
     }
     
   }
-
-  useEffect(() => {
-    if(dealerState === 'dealing' && shouldHit()){
-      refetch()
-    } else if(dealerState === 'dealing'){
-      handleDealerState('done')
-    }
-  }, [dealerState])
   
   useEffect(() => {
-    if(dealerState === 'dealing' && shouldHit()){
+    console.log(value)
+    if(dealerState === 'dealing' && dealerHand.length != 1 && shouldHit() && value < 21){
       refetch()
     } else if(dealerState === 'dealing'){
       handleDealerState('done')
@@ -50,19 +43,17 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   return (
     <div>
       <h1>Value: {value}</h1>
-      {dealerHand?.map((card, index) => {
-        if(dealerHand.length === 1){
+      <div className="row row-cols-4 gx-1">
+        {dealerHand?.map((card, index) => {
           return(
-            <div>
-              <Card key={index} imgSrc={card.images.png}/>
-              <Card imgSrc={'/card-back-red.webp'}/>
+            <div key={index}>
+              <Card imgSrc={card.images.png}/>
             </div>
+            
           )
-        }
-        return(
-          <Card key={index} imgSrc={card.images.png}/>
-        )
-      })}
+        })}
+        {dealerHand.length === 1 ? <div><Card imgSrc={'/card-back-red.webp'}/></div> : null}
+      </div>
     </div>
   )
 }

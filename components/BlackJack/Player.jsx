@@ -37,7 +37,6 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
       updatePlayerState('Bust')
       setPlayerStateText(<h2 className='text-danger'>Bust</h2>)
     }
-    
   }
 
   const blackJackCheck = () => {
@@ -45,10 +44,13 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
       updatePlayerState('Black Jack')
       setPlayerStateText(<h2 className='text-warning'>Black Jack</h2>)
     }
-    
   }
   
   useEffect(() => {
+    if(playerState === '')
+    {
+      setPlayerStateText('')
+    }
     bustCheck()
     blackJackCheck()
   }, [value])
@@ -66,11 +68,17 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
           {playerStateText}
         </div>
       )}
-      {playerHand?.map((card, index) => {
-        return(
-          <Card key={index} imgSrc={card.images.png}/>
-        )
-      })}
+      <div className="row row-cols-4 gx-1">
+        {playerHand?.map((card, index) => {
+          return(
+            <div>
+              <Card key={index} imgSrc={card.images.png}/>
+            </div>
+            
+          )
+        })}
+      </div>
+      
     </div>
   )
 }

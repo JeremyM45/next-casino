@@ -49,7 +49,6 @@ const BlackJack = () => {
         setDealerHand([d.cards[2]])
         setHiddenCard(d.cards[3])
       }
-      console.log(d.remaining)
       if(d.remaining < 52){
         await shuffleCards()
       }
@@ -74,6 +73,7 @@ const BlackJack = () => {
 
   const evaluateHand = (hand) => {
     const value = 0
+    
     hand.map((card) => {
       if(card.value === 'JACK' || card.value === 'QUEEN' || card.value === 'KING') {
         value += 10
@@ -84,8 +84,13 @@ const BlackJack = () => {
         value += parseInt(card.value)
       }
     })
-    if(value > 21 && hand.filter(e => e.value === 'ACE').length > 0){
-      value -= 10
+    const aceList = hand.filter(e => e.value === 'ACE')
+    if(value > 21 && aceList.length > 0){
+      aceList.map(() => {
+        if(value > 21){
+          value -= 10
+        }
+      })
     }
     return value
   }
@@ -108,7 +113,7 @@ const BlackJack = () => {
 
   useEffect(() => {
     if(dealerState === 'done' || dealerState === 'Black Jack'){
-      console.log('test')
+      setCanClick(false)
       setEndGameText(displayWinner())
     }
   }, [dealerState])
@@ -126,25 +131,26 @@ const BlackJack = () => {
   }, [playerState])
 
   return (
-    <div className='mb-4'>
+    <div className='container mb-4'>
       <Button onClick={clearData} className="btn">New Game</Button>
       {endGameText != '' ? endGameText : null}
-      <Dealer 
-        dealerHand={dealerHand} 
-        value={dealerHandValue} 
-        playerHandValue={playerHandValue} 
-        dealerState={dealerState} 
-        handleDealerState={handleDealerState} 
-        updateHand={updateDealerHand} 
-      />
-      <Player 
-        playerHand={playerHand}
-        updateHand={updatePlayerHand}
-        value={playerHandValue} 
-        playerState={playerState} 
-        updatePlayerState={handlePlayerState} 
-        canClick={canClick}
-      />
+        <Dealer 
+          dealerHand={dealerHand} 
+          value={dealerHandValue} 
+          playerHandValue={playerHandValue} 
+          dealerState={dealerState} 
+          handleDealerState={handleDealerState} 
+          updateHand={updateDealerHand} 
+        />
+        <Player 
+          playerHand={playerHand}
+          updateHand={updatePlayerHand}
+          value={playerHandValue} 
+          playerState={playerState} 
+          updatePlayerState={handlePlayerState} 
+          canClick={canClick}
+        />
+      
     </div>
   )
 }
