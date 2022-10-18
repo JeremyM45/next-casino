@@ -4,9 +4,13 @@
 
 .game{
   margin-top: 10rem;
-  padding-top: 10rem;
 }
 
 .player{
+  margin-top: 10rem;
+}
 
+.buttons{
+  margin-left: 2rem;
+  margin-right: 2rem;
 }

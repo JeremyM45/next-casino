@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
-
+import styles from '../../styles/BlackJack.module.css'
 
 const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, canClick, userName}) => {
   const [playerStateText, setPlayerStateText] = useState()
@@ -57,18 +57,15 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
 
   return (
     <div className='text-center mt-4'>
-      <h1>{userName}</h1>
-      <h1>Value: {value}</h1>
-      {canClick ? (
-        <div>
-          <Button onClick={handleHold} variant="danger">Hold</Button>
-          <Button onClick={handleHit} variant="success">Hit</Button>
+      <div className='row'>
+        <div className='col-6'>
+          <h1>Value: {value}</h1>
         </div>
-      ) : (
-        <div>
-          {playerStateText}
+        <div className='col-6'>
+          <h1>{userName}</h1>
         </div>
-      )}
+      </div>
+      
       <div className="justify-content-center row">
         {playerHand?.map((card, index) => {
           return(
@@ -79,7 +76,16 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
           )
         })}
       </div>
-      
+      {canClick ? (
+        <div >
+          <Button className={`${styles.buttons}`} onClick={handleHold} variant="danger">Hold</Button>
+          <Button className={`${styles.buttons}`} onClick={handleHit} variant="success">Hit</Button>
+        </div>
+      ) : (
+        <div>
+          {playerStateText}
+        </div>
+      )}
     </div>
   )
 }
