@@ -3,19 +3,19 @@ import { Button } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import Dealer from './Dealer'
 import Player from './Player'
+import { useAuth } from "../../context/AuthContext";
 
 const BlackJack = () => {
-
+  const { user } = useAuth()
+  const [canClick, setCanClick] = useState(true)
   const [playerHand, setPlayerHand] = useState([])
   const [dealerHand, setDealerHand] = useState([])
   const [playerHandValue, setPlayerHandValue] = useState(0)
   const [dealerHandValue, setDealerHandValue] = useState(0)
-  const [playerTurn, setPlayerTurn] = useState(true)
   const [playerState, setPlayerState] = useState('')
   const [dealerState, setDealerState] = useState('')
-  const [turnOver, setTurnOver] = useState(false)
   const [endGameText, setEndGameText] = useState('')
-  
+
   
   const clearData = () => {
     setPlayerHand([])
@@ -23,10 +23,9 @@ const BlackJack = () => {
     setPlayerState('')
     setEndGameText('')
     setDealerState('')
-    setPlayerTurn(true)
-    setTurnOver(false)
     setPlayerHandValue(0)
     refetch()
+    setCanClick(true)
   }
 
   async function dealCards(){
@@ -59,14 +58,6 @@ const BlackJack = () => {
     setDealerHand(currentHand => [...currentHand, value])
   }
 
-  const updateTurn = () => {
-    setPlayerTurn(false);
-  }
-
-  const handleTurnOver = () => {
-    setTurnOver(true)
-  }
-
   const handlePlayerState = (newPlayerState) => {
     setPlayerState(newPlayerState)
   }
@@ -95,9 +86,9 @@ const BlackJack = () => {
 
   const displayWinner = () => {
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
-      return (<h1>Dealer Wins</h1>)
+      return (<h1>The Dealer Wins</h1>)
     } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
-      return (<h1>Player Wins</h1>)
+      return (<h1>{user.email} Wins</h1>)
     } else{
       return (<h1>Tie Game</h1>)
     }
@@ -118,9 +109,10 @@ const BlackJack = () => {
 
   useEffect(() => {
     if(playerState === 'Bust' || playerState === 'Black Jack'){
+      setCanClick(false)
       setEndGameText(displayWinner())
     } else if(playerState === 'Holding'){
-      console.log('test state')
+      setCanClick(false)
       handleDealerState('dealing')
     }
   }, [playerState])
@@ -144,7 +136,7 @@ const BlackJack = () => {
         value={playerHandValue} 
         playerState={playerState} 
         updatePlayerState={handlePlayerState} 
-        onHolding={updateTurn}
+        canClick={canClick}
       />
     </div>
   )

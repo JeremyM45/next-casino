@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useQuery } from '@tanstack/react-query'
 import Card from './Card'
 
 
-const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, onHolding}) => {
+const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, canClick}) => {
+  const [playerStateText, setPlayerStateText] = useState()
 
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
@@ -27,15 +28,24 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
 
   const handleHold = () => {
     updatePlayerState('Holding')
-    onHolding()
+    setPlayerStateText(<h2 className='text-primary'>Holding</h2>)
   }
 
   const bustCheck = () => {
-    if(value > 21) updatePlayerState('Bust')
+    
+    if(value > 21) {
+      updatePlayerState('Bust')
+      setPlayerStateText(<h2 className='text-danger'>Bust</h2>)
+    }
+    
   }
 
   const blackJackCheck = () => {
-    if(value === 21) updatePlayerState('Black Jack')
+    if(value === 21) {
+      updatePlayerState('Black Jack')
+      setPlayerStateText(<h2 className='text-warning'>Black Jack</h2>)
+    }
+    
   }
   
   useEffect(() => {
@@ -46,10 +56,16 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
   return (
     <div>
       <h1>Value: {value}</h1>
-      <h2>{playerState}</h2>
-      {playerState === '' ? <Button onClick={handleHold} variant="danger">Hold</Button> : <></>}
-      <Button onClick={handleHit} variant="success">Hit</Button>
-      
+      {canClick ? (
+        <div>
+          <Button onClick={handleHold} variant="danger">Hold</Button>
+          <Button onClick={handleHit} variant="success">Hit</Button>
+        </div>
+      ) : (
+        <div>
+          {playerStateText}
+        </div>
+      )}
       {playerHand?.map((card, index) => {
         return(
           <Card key={index} imgSrc={card.images.svg}/>
