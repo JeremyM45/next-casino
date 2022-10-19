@@ -56,7 +56,7 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
   }, [value])
 
   return (
-    <div className='text-center mt-4'>
+    <div className='text-center'>
       <div className='row'>
         <div className='col-6'>
           <h1>Value: {value}</h1>
@@ -65,7 +65,7 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
           <h1>{userName}</h1>
         </div>
       </div>
-      
+
       <div className="justify-content-center row">
         {playerHand?.map((card, index) => {
           return(

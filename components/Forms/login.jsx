@@ -27,17 +27,17 @@ const Login = ({ handleShowLogin, handleClose }) => {
         show={true}
         backdrop="static"
         keyboard={false}
+        onHide={handleClose}
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Log In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form onSubmit={handleLogIn}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control 
+        <Form.Floating  controlId="formBasicEmail">
+        <Form.Control 
             type='email'
-            placeholder="email@example.com"
+            placeholder="email"
             required
             onChange={(e) => setData({
               ...data,
@@ -46,12 +46,14 @@ const Login = ({ handleShowLogin, handleClose }) => {
           }
           value={data.email}
           />
-        </Form.Group>
+          <Form.Label>Email Address</Form.Label>
+          
+        </Form.Floating >
 
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control 
+        <Form.Floating >
+        <Form.Control 
             type='password'
+            placeholder="password"
             required
             onChange={(e) => setData({
               ...data,
@@ -59,7 +61,9 @@ const Login = ({ handleShowLogin, handleClose }) => {
             })
           }
           />
-        </Form.Group>
+          <Form.Label>Password</Form.Label>
+          
+        </Form.Floating >
         <Button type="submit" variant="primary">Log In</Button>
         
       </Form>

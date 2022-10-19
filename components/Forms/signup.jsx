@@ -38,17 +38,17 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
       show={true}
       backdrop="static"
       keyboard={false}
+      onHide={handleClose}
       >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>Sign Up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSignUp}>
-          <Form.Group>
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control 
+          <Form.Floating>
+          <Form.Control 
               type='email'
-              placeholder="email@example.com"
+              placeholder="email"
               required
               onChange={(e) => setData({
                 ...data,
@@ -57,32 +57,36 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
             }
             value={data.email}
             />
-          </Form.Group>
+            <Form.Label>Email Address</Form.Label>
+          </Form.Floating>
 
-          <Form.Group>
+          <Form.Floating>
+            <Form.Control 
+                type='password'
+                placeholder="password"
+                required
+                onChange={(e) => setData({
+                  ...data,
+                  password: e.target.value
+                })
+              }
+              />
             <Form.Label>Password</Form.Label>
+          </Form.Floating>
+          <Form.Floating>
             <Form.Control 
-              type='password'
-              required
-              onChange={(e) => setData({
-                ...data,
-                password: e.target.value
-              })
-            }
-            />
-          </Form.Group>
-          <Form.Group>
+                type='password'
+                placeholder="confirm password"
+                required
+                onChange={(e) => setData({
+                  ...data,
+                  passwordConfirm: e.target.value
+                })
+              }
+              />
             <Form.Label>Confirm Password</Form.Label>
-            <Form.Control 
-              type='password'
-              required
-              onChange={(e) => setData({
-                ...data,
-                passwordConfirm: e.target.value
-              })
-            }
-            />
-          </Form.Group>
+            
+          </Form.Floating>
           {error ? <h4 className="text-danger text-bold">{error}</h4> : null}
           <Button type="submit" variant="success">Sign Up</Button>
         </Form>
@@ -90,6 +94,7 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
       <Modal.Footer>
         <p>Already have an account?</p>
         <Button onClick={handleShowSignIn} variant="primary">Log In</Button>
+        
       </Modal.Footer>
     </Modal>
   )
