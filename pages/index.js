@@ -48,7 +48,6 @@ export default function Home() {
             <div className='container border border-primary h-0'>
               {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange}/> : null}
             </div>
-              <Button className='justify-content-center' varient="alert" onClick={() => {logOut()}}>Logout</Button>
             </>
             
           ) : (

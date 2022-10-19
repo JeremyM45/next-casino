@@ -1,0 +1,9 @@
+.frame{
+  background-color: black;
+  padding: 1rem;
+}
+
+.button {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
