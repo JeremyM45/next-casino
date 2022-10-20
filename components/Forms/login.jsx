@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
-import Modal from 'react-bootstrap/Modal';
+import styles from '../../styles/AccountForm.module.css'
 
 const Login = ({ handleShowLogin, handleClose }) => {
   const{user, logIn} = useAuth()
@@ -23,57 +23,40 @@ const Login = ({ handleShowLogin, handleClose }) => {
   
   
   return (
-    <Modal
-        show={true}
-        backdrop="static"
-        keyboard={false}
-        onHide={handleClose}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Log In</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <Form onSubmit={handleLogIn}>
-        <Form.Floating  controlId="formBasicEmail">
+    <Form onSubmit={handleLogIn}>
+      <Form.Floating className={styles.loginEmail}>
         <Form.Control 
-            type='email'
-            placeholder="email"
-            required
-            onChange={(e) => setData({
-              ...data,
-              email: e.target.value
-            })
-          }
+          type='email'
+          placeholder="email"
+          required
+          onChange={(e) => setData({
+            ...data,
+            email: e.target.value
+          })}
           value={data.email}
-          />
-          <Form.Label>Email Address</Form.Label>
-          
-        </Form.Floating >
+        />
+        <Form.Label>Email Address</Form.Label>
+      </Form.Floating>
 
-        <Form.Floating >
-        <Form.Control 
-            type='password'
-            placeholder="password"
-            required
-            onChange={(e) => setData({
-              ...data,
-              password: e.target.value
-            })
-          }
-          />
-          <Form.Label>Password</Form.Label>
-          
-        </Form.Floating >
-        <Button type="submit" variant="primary">Log In</Button>
+      <Form.Floating className={styles.loginPassword}>
+      <Form.Control 
+          type='password'
+          placeholder="password"
+          required
+          onChange={(e) => setData({
+            ...data,
+            password: e.target.value
+          })
+        }
+        />
+        <Form.Label>Password</Form.Label>
         
-      </Form>
-
-        </Modal.Body>
-        <Modal.Footer>
-          <p>Don't have an account?</p>
-          <Button onClick={handleShowLogin} variant="success">Sign Up</Button>
-        </Modal.Footer>
-      </Modal>
+      </Form.Floating >
+      <div className="justify-content-center row row-cols-6">
+        <Button className={styles.loginButton} type="submit" variant="primary">Log In</Button>
+      </div>
+      
+    </Form>
   )
 }
 

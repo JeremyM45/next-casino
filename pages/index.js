@@ -3,30 +3,19 @@ import { Navbar } from '../components/Navbar';
 import { Button } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import styles from '../styles/Home.module.css'
-import Login from '../components/Forms/login'
-import Signup from '../components/Forms/signup'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BlackJack from '../components/BlackJack/BlackJack'
+import AccountForm from '../components/Forms/AccountForm';
 
 export default function Home() {
   const { user, logOut } = useAuth()
-  const [logInVisable, setLogInVisiable] = useState(false)
-  const [signUpVisable, setSignUpVisable] = useState(false)
+  const [accountFormVisable, setAccountFormVisable] = useState(false)
   const [shownGame, setShownGame] = useState('')
+  const [isSignup, setIsSignup] = useState(false)
 
   function handleShowLogIn(){
     setLogInVisiable(true)
     setSignUpVisable(false)
-  }
-
-  function handleShowSignUp(){
-    setSignUpVisable(true)
-    setLogInVisiable(false)
-  }
-  
-  function handleClose(){
-    setSignUpVisable(false)
-    setLogInVisiable(false)
   }
 
   function handelShowGameChange(newShownGame){
@@ -46,20 +35,15 @@ export default function Home() {
           {user ? (
             <>
             <div className='container border border-primary h-0'>
-              {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange}/> : null}
+              {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange} /> : null}
             </div>
             </>
             
           ) : (
             <>
-              {logInVisable || signUpVisable ? null : 
-                <>
-                  <Button  varient="primary" onClick={handleShowLogIn}>Login</Button>
-                  <Button  variant="success" onClick={handleShowSignUp}>Signup</Button>
-                </>
-              }
-              {logInVisable ? <Login handleShowLogin={handleShowSignUp} handleClose={handleClose} /> : null}
-              {signUpVisable ? <Signup handleShowSignIn={handleShowLogIn} handleClose={handleClose}/> : null}
+              <Button  varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>
+              <Button  variant="success" onClick={() => (setIsSignup(true), setAccountFormVisable(true))}>Signup</Button>
+              {accountFormVisable ?  <AccountForm handleShowAccountForm={setAccountFormVisable} setIsSignup={setIsSignup} isSignup={isSignup} />: null}
             </>
             
           )}

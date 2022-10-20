@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
+import sytles from '../../styles/AccountForm.module.css'
 
 const Signup = ({ handleShowSignIn, handleClose }) => {
   const{user, signUp} = useAuth()
@@ -34,69 +35,54 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
   }
 
   return (
-    <Modal
-      show={true}
-      backdrop="static"
-      keyboard={false}
-      onHide={handleClose}
-      >
-      <Modal.Header closeButton>
-        <Modal.Title>Sign Up</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSignUp}>
-          <Form.Floating>
-          <Form.Control 
-              type='email'
-              placeholder="email"
-              required
-              onChange={(e) => setData({
-                ...data,
-                email: e.target.value
-              })
-            }
-            value={data.email}
-            />
-            <Form.Label>Email Address</Form.Label>
-          </Form.Floating>
+    <Form onSubmit={handleSignUp}>
+      <Form.Floating >
+      <Form.Control 
+          type='email'
+          placeholder="email"
+          required
+          onChange={(e) => setData({
+            ...data,
+            email: e.target.value
+          })
+        }
+        value={data.email}
+        />
+        <Form.Label>Email Address</Form.Label>
+      </Form.Floating>
 
-          <Form.Floating>
-            <Form.Control 
-                type='password'
-                placeholder="password"
-                required
-                onChange={(e) => setData({
-                  ...data,
-                  password: e.target.value
-                })
-              }
-              />
-            <Form.Label>Password</Form.Label>
-          </Form.Floating>
-          <Form.Floating>
-            <Form.Control 
-                type='password'
-                placeholder="confirm password"
-                required
-                onChange={(e) => setData({
-                  ...data,
-                  passwordConfirm: e.target.value
-                })
-              }
-              />
-            <Form.Label>Confirm Password</Form.Label>
-            
-          </Form.Floating>
-          {error ? <h4 className="text-danger text-bold">{error}</h4> : null}
-          <Button type="submit" variant="success">Sign Up</Button>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <p>Already have an account?</p>
-        <Button onClick={handleShowSignIn} variant="primary">Log In</Button>
+      <Form.Floating className={sytles.signupPasswords}>
+        <Form.Control 
+            type='password'
+            placeholder="password"
+            required
+            onChange={(e) => setData({
+              ...data,
+              password: e.target.value
+            })
+          }
+          />
+        <Form.Label>Password</Form.Label>
+      </Form.Floating>
+      <Form.Floating className={sytles.signupPasswords}>
+        <Form.Control 
+            type='password'
+            placeholder="confirm password"
+            required
+            onChange={(e) => setData({
+              ...data,
+              passwordConfirm: e.target.value
+            })
+          }
+          />
+        <Form.Label>Confirm Password</Form.Label>
         
-      </Modal.Footer>
-    </Modal>
+      </Form.Floating>
+      {error ? <h4 className="text-danger text-bold">{error}</h4> : null}
+      <div className="justify-content-center row row-cols-5">
+        <Button type="submit" variant="success">Sign Up</Button>
+      </div>
+    </Form>
   )
 }
 
