@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import Login from "./login";
 import Signup from "./signup";
 import React from 'react'
-import sytles from '../../styles/AccountForm.module.css'
+import styles from '../../styles/AccountForm.module.css'
 
 const AccountForm = ({ handleShowAccountForm, isSignup, setIsSignup }) => {
   const{user, logIn, signUp} = useAuth()
@@ -26,17 +26,19 @@ const AccountForm = ({ handleShowAccountForm, isSignup, setIsSignup }) => {
           {isSignup ? <Signup /> : <Login /> }
         </Modal.Body>
         <Modal.Footer>
-          {isSignup ? (
-            <>
-              <p>Already have an account?</p>
-              <Button onClick={() => setIsSignup(false)} variant="primary">Log In</Button>
-            </>
-          ) : (
-            <>
-              <p>Don't have an account?</p>
-              <Button onClick={() => setIsSignup(true)} variant="success">Sign Up</Button>
-            </>
-          )}
+          <div className={`${styles.modalFooter}`}>
+            {isSignup ? (
+              <div className={styles.modalFooterStatment}>
+                <p>Already have an account?</p>
+                <Button onClick={() => setIsSignup(false)}  variant="primary" className={styles.modalFooterButtonLogin}>Log In</Button>
+              </div>
+            ) : (
+              <div className={styles.modalFooterStatment}>
+                <p>Don't have an account?</p>
+                <Button onClick={() => setIsSignup(true)} variant="success" className={styles.modalFooterButtonSignup}>Sign Up</Button>
+              </div>
+            )}
+          </div>
         </Modal.Footer>
       </Modal>
       
