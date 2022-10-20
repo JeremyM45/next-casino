@@ -34,7 +34,7 @@ export default function Home() {
         <main className='border border-danger'>
           {user ? (
             <>
-            <div className='container border border-primary h-0'>
+            <div className=''>
               {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange} /> : null}
             </div>
             </>

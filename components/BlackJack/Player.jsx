@@ -56,25 +56,14 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
   }, [value])
 
   return (
-    <div className='text-center'>
-      <div className='row'>
-        <div className='col-6'>
+    <div className='container text-center text-warning'>
+      <div className='' >
+        <div>
           <h1>Value: {value}</h1>
         </div>
-        <div className='col-6'>
+        <div>
           <h1>{userName}</h1>
         </div>
-      </div>
-
-      <div className="justify-content-center row">
-        {playerHand?.map((card, index) => {
-          return(
-            <div className='col-auto' key={index}>
-              <Card  imgSrc={card.images.png}/>
-            </div>
-            
-          )
-        })}
       </div>
       {canClick ? (
         <div >
@@ -86,6 +75,15 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
           {playerStateText}
         </div>
       )}
+      <div className="justify-content-center row">
+        {playerHand?.map((card, index) => {
+          return(
+            <div className='col-3 col-sm-auto' key={index}>
+              <Card  imgSrc={card.images.png}/>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

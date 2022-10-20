@@ -145,9 +145,11 @@ const BlackJack = ({ changeShownGame }) => {
       handleDealerState('dealing')
     }
   }, [playerState])
-
+  // className={`border border-secondary ${styles.game}`}
+  // className={`border border-warning ${styles.dealer}`}
+  // className={`border border-danger ${styles.player}`}
   return (
-    <div className='container mb-4'>
+    <div className='mb-4'>
       {endGameText != '' ? (
         <EndGameModal 
           newGameClear={clearData} 
@@ -157,8 +159,8 @@ const BlackJack = ({ changeShownGame }) => {
           dealerHandValue={dealerHandValue}
           userName={user.email}
         /> ) : null}
-        <div className={`border border-secondary ${styles.game}`}>
-          <div className={`border border-warning ${styles.dealer}`}>
+        <div >
+          <div >
             <Dealer 
               dealerHand={dealerHand} 
               value={dealerHandValue} 
@@ -168,7 +170,7 @@ const BlackJack = ({ changeShownGame }) => {
               updateHand={updateDealerHand} 
             />
           </div>
-          <div className={`border border-danger ${styles.player}`}>
+          <div >
             <Player 
               playerHand={playerHand}
               updateHand={updatePlayerHand}

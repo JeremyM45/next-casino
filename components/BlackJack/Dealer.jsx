@@ -8,7 +8,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
     return await res.json()
   }
-  
+  console.log('render ' + value)
   const {refetch} = useQuery(['dealerHit'], getCard, {
     enabled: false,
     refetchOnWindowFocus: false,
@@ -18,6 +18,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   })
 
   const shouldHit = () => {
+    console.log('should hit ' + value)
     if(value >= 21){
       return false
     } else if(value < playerHandValue || value < 16 && value === playerHandValue) {
@@ -29,7 +30,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   
   useEffect(() => {
     console.log(value)
-    if(dealerState === 'dealing' && dealerHand.length != 1 && shouldHit() && value < 21){
+    if(dealerState === 'dealing' && dealerHand.length != 1 && value < 21 && shouldHit() ){
       refetch()
     } else if(dealerState === 'dealing'){
       handleDealerState('done')
@@ -40,7 +41,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   }, [value])
 
   return (
-    <div className='text-center'>
+    <div className='container text-center text-danger'>
       <div className='row'>
         <div className='col-6'>
           <h1>Value: {value}</h1>
@@ -49,17 +50,16 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
           <h1>Dealer</h1>
         </div>
       </div>
-
       <div className="justify-content-center row">
         {dealerHand?.map((card, index) => {
           return(
-            <div key={index} className='col-auto'>
-              <Card imgSrc={card.images.png}/>
+            <div className='col-3 col-sm-auto' key={index} >
+              <Card imgSrc={card.images.png} />
             </div>
             
           )
         })}
-        {dealerHand.length === 1 ? <div className='col-auto'><Card imgSrc={'/card-back-red.webp'}/></div> : null}
+        {dealerHand.length === 1 ? <div className='col-3 col-sm-auto'><Card imgSrc={'/card-back-red.webp'}/></div> : null}
       </div>
     </div>
   )
