@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import styles from '../../styles/AccountForm.module.css'
 
-const Login = ({ handleShowLogin, handleClose }) => {
+const Login = () => {
   const{user, logIn} = useAuth()
   const [data, setData] = useState({
     email: '',
@@ -15,7 +15,6 @@ const Login = ({ handleShowLogin, handleClose }) => {
     try{
       
       await logIn(data.email, data.password)
-      handleClose()
     } catch(err){
       console.log(err)
     }

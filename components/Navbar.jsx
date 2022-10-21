@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavItem from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar';
+import Link from "next/link";
 
 export const NavBar = ({ changeShownGame }) => {
   const { user, logOut } = useAuth()
@@ -16,16 +17,16 @@ export const NavBar = ({ changeShownGame }) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <NavItem>
+              <Nav.Link eventKey="1">
                 <Button className={`btn-warning ${styles.button}`} onClick={() => changeShownGame('Black Jack')}>Black Jack</Button>
-              </NavItem>
-              <NavItem>
+              </Nav.Link>
+              <Nav.Link eventKey="1">
                 <Button className={`btn ${styles.button}`} onClick={() => changeShownGame('')}>Home</Button>
-              </NavItem>
+              </Nav.Link>
               {user && (
-                <NavItem>
+                <Nav.Link eventKey="1">
                   <Button className={`btn-danger ${styles.button}`} varient="alert" onClick={() => {logOut()}}>Logout</Button>
-                </NavItem>)
+                </Nav.Link>)
               }
             </Nav>
         </Navbar.Collapse>

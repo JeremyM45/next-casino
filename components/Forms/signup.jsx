@@ -3,7 +3,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import sytles from '../../styles/AccountForm.module.css'
 
-const Signup = ({ handleShowSignIn, handleClose }) => {
+const Signup = () => {
   const{user, signUp} = useAuth()
   const [error, setError] = useState();
   const [data, setData] = useState({
@@ -24,7 +24,6 @@ const Signup = ({ handleShowSignIn, handleClose }) => {
     if(passCheck()){
       try{
         await signUp(data.email, data.password)
-        handleClose()
       } catch(err){
         console.log(err)
       }
