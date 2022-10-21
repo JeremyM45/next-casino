@@ -25,8 +25,12 @@ export function AuthContextProvider({ children }) {
     return () => unsubscribe()
   }, [])
   
-  function logIn(email, password) { signInWithEmailAndPassword(auth, email, password) }
-  function signUp(email, password) { createUserWithEmailAndPassword(auth, email, password) }
+  async function logIn(email, password) { 
+    const res = await signInWithEmailAndPassword(auth, email, password)
+  }
+  async function signUp(email, password) { 
+    const res = await createUserWithEmailAndPassword(auth, email, password) 
+  }
   async function logOut() {
     setUser(null)
     await signOut(auth)

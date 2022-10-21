@@ -7,9 +7,9 @@ import React from 'react'
 import styles from '../../styles/AccountForm.module.css'
 
 const AccountForm = ({ handleShowAccountForm, isSignup, setIsSignup }) => {
-  const{user, logIn, signUp} = useAuth()
-  
-  const [error, setError] = useState();
+  const{user, logIn, signUp} = useAuth();
+  const [error, setError] = useState('');
+
   return (
     <div>
       <Modal
@@ -22,20 +22,20 @@ const AccountForm = ({ handleShowAccountForm, isSignup, setIsSignup }) => {
           <Modal.Title>{isSignup ? 'Signup' : 'Login'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          
-          {isSignup ? <Signup /> : <Login /> }
+          {error != '' && <h2 className="text-danger">{error}</h2>}
+          {isSignup ? <Signup setError={setError}/> : <Login setError={setError}/> }
         </Modal.Body>
         <Modal.Footer>
           <div className={`${styles.modalFooter}`}>
             {isSignup ? (
               <div className={styles.modalFooterStatment}>
                 <p>Already have an account?</p>
-                <Button onClick={() => setIsSignup(false)}  variant="primary" className={styles.modalFooterButtonLogin}>Log In</Button>
+                <Button onClick={() => (setIsSignup(false), setError(''))}  variant="primary" className={styles.modalFooterButtonLogin}>Log In</Button>
               </div>
             ) : (
               <div className={styles.modalFooterStatment}>
                 <p>Don't have an account?</p>
-                <Button onClick={() => setIsSignup(true)} variant="success" className={styles.modalFooterButtonSignup}>Sign Up</Button>
+                <Button onClick={() => (setIsSignup(true), setError(''))} variant="success" className={styles.modalFooterButtonSignup}>Sign Up</Button>
               </div>
             )}
           </div>

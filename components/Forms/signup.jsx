@@ -3,9 +3,8 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import sytles from '../../styles/AccountForm.module.css'
 
-const Signup = () => {
+const Signup = ({setError}) => {
   const{user, signUp} = useAuth()
-  const [error, setError] = useState();
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -21,14 +20,18 @@ const Signup = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault()
-    if(passCheck()){
-      try{
-        await signUp(data.email, data.password)
-      } catch(err){
-        console.log(err)
-      }
-    } else {
+    if(data.password.length < 6){
+      setError('Password must be atleast 6 characters')
+      return
+    }
+    if(!passCheck()){
       setError('Passwords do not match')
+      return
+    }
+    try{
+      await signUp(data.email, data.password)
+    } catch(err){
+      setError('invalid email')
     }
     
   }
@@ -77,7 +80,6 @@ const Signup = () => {
         <Form.Label>Confirm Password</Form.Label>
         
       </Form.Floating>
-      {error ? <h4 className="text-danger text-bold">{error}</h4> : null}
       <div className="justify-content-center row row-cols-5">
         <Button type="submit" variant="success">Sign Up</Button>
       </div>

@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import styles from '../../styles/AccountForm.module.css'
 
-const Login = () => {
+const Login = ({setError}) => {
   const{user, logIn} = useAuth()
   const [data, setData] = useState({
     email: '',
@@ -13,10 +13,9 @@ const Login = () => {
   const handleLogIn = async (e) => {
     e.preventDefault()
     try{
-      
       await logIn(data.email, data.password)
     } catch(err){
-      console.log(err)
+      setError('Email or Password is Invalid')
     }
   }
   
