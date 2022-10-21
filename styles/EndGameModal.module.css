@@ -27,16 +27,29 @@
 }
 
 .modalBodyPlayerWinPlayerHandValue{
-  background-color: rgba(0, 128, 0, 0.523);
+  font-weight: bolder;
+  color: rgb(8, 159, 8);
   padding-left: 0.4rem;
 }
 
 .modalBodyPlayerLosePlayerHandValue{
-  background-color: rgba(218, 1, 1, 0.523);
+  font-weight: bold;
+  color: rgb(212, 50, 50);
   padding-left: 0.4rem;
 }
 
 .modalBodyDealerHandValue{
   padding-left: 0.4rem;
 }
+
+.modalFooter{
+  border: 1px solid black;
+  display: flex;
+}
+
+.modalButtons{
+  margin-right: auto;
+}
+
+
 

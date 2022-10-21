@@ -36,8 +36,8 @@ export default function EndGameModal({newGameClear, changeShownGame, endGameText
           </Container>
 
         </Modal.Body>
-        <Modal.Footer>
-          <Button className='btn' onClick={() => changeShownGame('')}>Home</Button>
+        <Modal.Footer className={styles.modalFooter}>
+          <Button className={styles.modalButtons} onClick={() => changeShownGame('')}>Home</Button>
           <Button onClick={newGameClear} className="btn-warning">New Game</Button>
         </Modal.Footer>
       </Modal>

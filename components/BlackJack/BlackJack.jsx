@@ -135,9 +135,7 @@ const BlackJack = ({ changeShownGame }) => {
       handleDealerState('dealing')
     }
   }, [playerState])
-  // className={`border border-secondary ${styles.game}`}
-  // className={`border border-warning ${styles.dealer}`}
-  // className={`border border-danger ${styles.player}`}
+
   return (
     <div className='mb-4'>
       {endGameText != '' ? (

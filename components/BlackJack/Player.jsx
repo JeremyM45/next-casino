@@ -67,10 +67,9 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
         {playerHand?.map((card, index) => {
           if(playerHand.length > 4){return <div className='col-2 col-sm-auto' key={index}><Card imgSrc={card.images.png}/></div>}
           return(
-              <div className='col-3 col-sm-auto' key={index}>
-                <Card  imgSrc={card.images.png}/>
-              </div>
-            
+            <div className='col-3 col-sm-auto' key={index}>
+              <Card  imgSrc={card.images.png}/>
+            </div>
           )
         })}
       </div>
