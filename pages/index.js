@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState } from 'react'
 import BlackJack from '../components/BlackJack/BlackJack'
 import AccountForm from '../components/Forms/AccountForm';
+import HomeCards from '../components/HomeCards';
 
 export default function Home() {
   const { user, logOut } = useAuth()
@@ -31,22 +32,36 @@ export default function Home() {
       </Head>
       <NavBar changeShownGame={handelShowGameChange}/>
       <div className={styles.container}>
-        <main className=''>
-          {user ? (
-            <>
-            <div className=''>
-              {shownGame === 'BlackJack' ? <BlackJack changeShownGame={handelShowGameChange} /> : null}
-            </div>
-            </>
-            
-          ) : (
+        <main className='container'>
+          {user && shownGame === '' && (
+            <div>
+                <div className='row row-cols-2'>
+                  <div className='border border-primary'>
+                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  </div>
+                  <div className='border border-primary'>
+                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  </div>
+                </div>
+                <div className='row row-cols-2'>
+                  <div className='border border-primary'>
+                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  </div>
+                  <div className='border border-primary'>
+                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  </div>
+                </div>
+              </div>
+            )}
+          {!user && (
             <>
               <Button  varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>
               <Button  variant="success" onClick={() => (setIsSignup(true), setAccountFormVisable(true))}>Signup</Button>
               {accountFormVisable ?  <AccountForm handleShowAccountForm={setAccountFormVisable} setIsSignup={setIsSignup} isSignup={isSignup} />: null}
             </>
-            
           )}
+          
+          {shownGame === 'Black Jack' && <BlackJack changeShownGame={handelShowGameChange} />}
         </main>
       </div>
   </>

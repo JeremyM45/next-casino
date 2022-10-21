@@ -99,7 +99,6 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   const displayWinner = () => {
-    let bust = ''
     if(playerHandValue > 21){setWhoBust(`${user.email} Busts`)}
     if(dealerHandValue > 21){setWhoBust('Dealer Busts')}
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
@@ -136,6 +135,10 @@ const BlackJack = ({ changeShownGame }) => {
     }
   }, [playerState])
 
+  if(!user){
+    return
+  }
+  
   return (
     <div className='mb-4'>
       {endGameText != '' ? (
