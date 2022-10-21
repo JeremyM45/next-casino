@@ -26,10 +26,10 @@ export function AuthContextProvider({ children }) {
   }, [])
   
   async function logIn(email, password) { 
-    const res = await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
   }
   async function signUp(email, password) { 
-    const res = await createUserWithEmailAndPassword(auth, email, password) 
+    await createUserWithEmailAndPassword(auth, email, password) 
   }
   async function logOut() {
     setUser(null)
