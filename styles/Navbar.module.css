@@ -1,5 +1,5 @@
 .frame{
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   padding: 1rem;
 }
 
@@ -7,3 +7,12 @@
   margin-left: 2rem;
   margin-right: 2rem;
 }
+
+/* .navbarToggle{
+  background-color: rgb(221, 241, 0);
+}
+
+.offCanvas{
+  background-color: rgb(33,37,41);
+  
+} */
