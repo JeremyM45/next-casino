@@ -1,16 +1,14 @@
-.dealer{
-  
-}
 
 .game{
   margin-top: 10rem;
 }
 
-.player{
-  margin-top: 10rem;
+.playerCard{
+  margin-top: 7rem;
 }
 
 .buttons{
   margin-left: 2rem;
   margin-right: 2rem;
 }
+

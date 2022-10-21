@@ -3,11 +3,12 @@ import Card from "./Card"
 import { useQuery } from '@tanstack/react-query'
 
 const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, handleDealerState}) => {
-  
+
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
     return await res.json()
   }
+  console.log('render ' + dealerState)
   console.log('render ' + value)
   const {refetch} = useQuery(['dealerHit'], getCard, {
     enabled: false,
@@ -43,15 +44,15 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   return (
     <div className='container text-center text-danger'>
       <div className='row'>
-        <div className='col-6'>
-          <h1>Value: {value}</h1>
-        </div>
-        <div className='col-6'>
+        
+        <div className='col-12'>
           <h1>Dealer</h1>
         </div>
+        
       </div>
       <div className="justify-content-center row">
         {dealerHand?.map((card, index) => {
+          if(dealerHand.length > 4){return <div className='col-2 col-sm-auto' key={index}><Card imgSrc={card.images.png}/></div>}
           return(
             <div className='col-3 col-sm-auto' key={index} >
               <Card imgSrc={card.images.png} />
@@ -61,6 +62,10 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
         })}
         {dealerHand.length === 1 ? <div className='col-3 col-sm-auto'><Card imgSrc={'/card-back-red.webp'}/></div> : null}
       </div>
+      <div className='col-12'>
+        <h1>Value: {value}</h1>
+      </div>
+      
     </div>
   )
 }

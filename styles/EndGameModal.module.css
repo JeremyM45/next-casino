@@ -1,0 +1,42 @@
+.modalTitle{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modalTitleStatment{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modalBustStatment{
+  margin-left: auto;
+  margin-right: auto;
+  color: crimson;
+}
+
+.modalBody{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modalBodyWinnerStatment{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.modalBodyPlayerWinPlayerHandValue{
+  background-color: rgba(0, 128, 0, 0.523);
+  padding-left: 0.4rem;
+}
+
+.modalBodyPlayerLosePlayerHandValue{
+  background-color: rgba(218, 1, 1, 0.523);
+  padding-left: 0.4rem;
+}
+
+.modalBodyDealerHandValue{
+  padding-left: 0.4rem;
+}
+

@@ -17,6 +17,7 @@ const BlackJack = ({ changeShownGame }) => {
   const [playerState, setPlayerState] = useState('')
   const [dealerState, setDealerState] = useState('')
   const [endGameText, setEndGameText] = useState('')
+  const [whoBust, setWhoBust] = useState('')
 
   
   const clearData = () => {
@@ -25,6 +26,7 @@ const BlackJack = ({ changeShownGame }) => {
     setPlayerState('')
     setEndGameText('')
     setDealerState('')
+    setWhoBust('')
     setPlayerHandValue(0)
     refetch()
     setCanClick(true)
@@ -98,26 +100,14 @@ const BlackJack = ({ changeShownGame }) => {
 
   const displayWinner = () => {
     let bust = ''
-    if(playerHandValue > 21){bust = <h1>{user.email} Busts</h1>}
-    if(dealerHandValue > 21){bust = <h1>Dealer Busts</h1>}
+    if(playerHandValue > 21){setWhoBust(`${user.email} Busts`)}
+    if(dealerHandValue > 21){setWhoBust('Dealer Busts')}
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
-      return (
-      <>
-        {bust}
-        <h1>The Dealer Wins</h1>
-      </>)
+      return 'The Dealer Wins'
     } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
-      return (
-      <>
-        {bust}
-        <h1>{user.email} Wins</h1>
-      </>)
+      return `${user.email} Wins`
     } else{
-      return (
-      <>
-        {bust}
-        <h1>Tie Game</h1>
-      </>)
+      return 'Tie Game'
     }
   }
 
@@ -158,9 +148,10 @@ const BlackJack = ({ changeShownGame }) => {
           playerHandValue={playerHandValue}
           dealerHandValue={dealerHandValue}
           userName={user.email}
+          whoBust={whoBust}
         /> ) : null}
         <div >
-          <div >
+          <div className={`border border-warning ${styles.dealer}`}>
             <Dealer 
               dealerHand={dealerHand} 
               value={dealerHandValue} 
@@ -170,7 +161,7 @@ const BlackJack = ({ changeShownGame }) => {
               updateHand={updateDealerHand} 
             />
           </div>
-          <div >
+          <div className={`border border-danger ${styles.playerCard}`} >
             <Player 
               playerHand={playerHand}
               updateHand={updatePlayerHand}
