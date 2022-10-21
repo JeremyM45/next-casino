@@ -149,7 +149,7 @@ const BlackJack = ({ changeShownGame }) => {
           whoBust={whoBust}
         /> ) : null}
         <div >
-          <div className={`border border-warning ${styles.dealer}`}>
+          <div className={styles.dealer}>
             <Dealer 
               dealerHand={dealerHand} 
               value={dealerHandValue} 
@@ -159,7 +159,7 @@ const BlackJack = ({ changeShownGame }) => {
               updateHand={updateDealerHand} 
             />
           </div>
-          <div className={`border border-danger ${styles.playerCard}`} >
+          <div className={styles.playerCard} >
             <Player 
               playerHand={playerHand}
               updateHand={updatePlayerHand}

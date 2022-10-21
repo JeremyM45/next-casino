@@ -74,9 +74,9 @@ const Player = ({playerHand, updateHand, value, playerState, updatePlayerState, 
         })}
       </div>
       {canClick ? (
-        <div >
-          <Button className={`${styles.buttons}`} onClick={handleHold} variant="danger">Hold</Button>
-          <Button className={`${styles.buttons}`} onClick={handleHit} variant="success">Hit</Button>
+        <div className={styles.playerButtons}>
+          <Button className={`${styles.playerButtonHold}`} onClick={handleHold} variant="danger">Hold</Button>
+          <Button className={`${styles.playerButtonHit}`} onClick={handleHit} variant="success">Hit</Button>
         </div>
       ) : (
         <div>

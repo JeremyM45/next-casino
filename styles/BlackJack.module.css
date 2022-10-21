@@ -7,8 +7,14 @@
   margin-top: 7rem;
 }
 
-.buttons{
-  margin-left: 2rem;
-  margin-right: 2rem;
+.playerButtons{
+  display: flex;
+  
+}
+.playerButtonHit{
+
 }
 
+.playerButtonHold{
+  margin-right: auto;
+}

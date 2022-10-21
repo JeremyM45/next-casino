@@ -31,7 +31,7 @@ export default function Home() {
       </Head>
       <Navbar changeShownGame={handelShowGameChange}/>
       <div className={styles.container}>
-        <main className='border border-danger'>
+        <main className=''>
           {user ? (
             <>
             <div className=''>
