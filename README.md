@@ -36,3 +36,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
  ## Known Bugs
 
 When both the player and dealer are dealt a perfect 21 upon the inital deal the dealer will still draw a new card. The game is still correctly ending as a tie regardless of the dealers 3rd card. 
+
+Sometimes (very rare) when the dealer hits on an ace that should recalculate from 11 to 1 the dealer gets stuck and won't hit or bust
