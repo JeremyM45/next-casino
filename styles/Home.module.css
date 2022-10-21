@@ -2,3 +2,17 @@
   height: 100%;
   background-color: rgb(2, 56, 2);
 }
+
+
+.homeCardsContainer{
+  display: flex;
+}
+
+.homeCards{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.homeCard{
+  padding-top: 2rem;
+}

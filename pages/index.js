@@ -34,24 +34,27 @@ export default function Home() {
       <div className={styles.container}>
         <main className='container'>
           {user && shownGame === '' && (
-            <div>
-                <div className='row row-cols-2'>
-                  <div className='border border-primary'>
+            <div className={styles.homeCardsContainer}>
+              <div className={styles.homeCards}>
+                <div className='row'>
+                  <div className={`${styles.homeCard} col-auto`}>
                     <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
                   </div>
-                  <div className='border border-primary'>
-                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  <div className={`${styles.homeCard} col-auto`}>
+                    <HomeCards imgSrc='/three-card-poker.webp' title='Three Card Poker' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
                   </div>
                 </div>
-                <div className='row row-cols-2'>
-                  <div className='border border-primary'>
-                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                <div className='row '>
+                  <div className={`${styles.homeCard} col-auto`}>
+                    <HomeCards imgSrc='/roulette.webp' title='Roulette' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
                   </div>
-                  <div className='border border-primary'>
-                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
+                  <div className={`${styles.homeCard} col-auto`}>
+                    <HomeCards imgSrc='/snail-race.webp' title='Snail Race' description='Hit to 21' handelShowGameChange={handelShowGameChange}/>
                   </div>
                 </div>
               </div>
+            </div>
+            
             )}
           {!user && (
             <>
