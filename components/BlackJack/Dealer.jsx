@@ -8,7 +8,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
     return await res.json()
   }
 
-  const {refetch} = useQuery(['dealerHit'], getCard, {
+  const {refetch, isLoading} = useQuery(['dealerHit'], getCard, {
     enabled: false,
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
@@ -42,7 +42,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
       refetch()
     }
   }, [dealerState])
-
+  
   return (
     <div className='container text-center text-danger'>
       <div className='row'>
@@ -57,7 +57,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
           if(dealerHand.length > 4){return <div className='col-2 col-sm-auto' key={index}><Card imgSrc={card.images.png}/></div>}
           return(
             <div className='col-3 col-sm-auto' key={index} >
-              <Card imgSrc={card.images?.png} />
+              <Card imgSrc={card.images?.png}/>
             </div>
             
           )

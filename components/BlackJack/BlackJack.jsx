@@ -30,6 +30,7 @@ const BlackJack = ({ changeShownGame }) => {
     setWhoBust('')
     refetch()
     setCanClick(true)
+    
   }
 
   async function dealCards(){
