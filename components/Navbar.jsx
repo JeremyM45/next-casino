@@ -10,7 +10,7 @@ export const NavBar = ({ changeShownGame, setAccountFormVisable, setIsSignup }) 
   return (
     <Navbar collapseOnSelect='true' expand="lg" bg="dark" variant="dark" className={styles.frame}>
       <Nav.Link eventKey="1">
-        <Navbar.Brand onClick={() => changeShownGame('')}>Casino</Navbar.Brand>
+        <Navbar.Brand className={styles.brand} onClick={() => changeShownGame('')}>Casino</Navbar.Brand>
       </Nav.Link>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

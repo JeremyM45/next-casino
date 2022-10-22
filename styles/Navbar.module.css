@@ -1,6 +1,13 @@
 .frame{
-
+  font-family: 'Lobster', cursive;
   
+}
+
+.brand{
+  font-family: 'Lobster', cursive;
+  font-size: xx-large;
+  margin-left: 1rem;
+  color: yellow;
 }
 
 .nav{
@@ -10,15 +17,17 @@
 
 .button {
   margin-left: 2rem;
+  font-weight: bold;
   margin-right: 2rem;
 }
 
 .accountButtons{
   margin-right: 5rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttonBlackJack{
-  margin-left: 12rem;
+  margin-left: 7rem;
 }
 
 .buttonThreeCard{
