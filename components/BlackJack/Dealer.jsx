@@ -1,15 +1,14 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Card from "./Card"
 import { useQuery } from '@tanstack/react-query'
 
 const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, handleDealerState}) => {
-
+  const [timesThrough, setTimesTrough] = useState(0)
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
     return await res.json()
   }
-  console.log('render ' + dealerState)
-  console.log('render ' + value)
+
   const {refetch} = useQuery(['dealerHit'], getCard, {
     enabled: false,
     refetchOnWindowFocus: false,
@@ -19,7 +18,6 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
   })
 
   const shouldHit = () => {
-    console.log('should hit ' + value)
     if(value >= 21){
       return false
     } else if(value < playerHandValue || value < 16 && value === playerHandValue) {
@@ -28,18 +26,23 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
       return false
     }
   }
-  
+
   useEffect(() => {
-    console.log(value)
-    if(dealerState === 'dealing' && dealerHand.length != 1 && value < 21 && shouldHit() ){
+    if((dealerState === 'dealing' || dealerState === 'dealt same val') && dealerHand.length != 1 && value < 21 && shouldHit() ){
       refetch()
-    } else if(dealerState === 'dealing'){
+    } else if((dealerState === 'dealing' || dealerState === 'dealt same val')){
       handleDealerState('done')
     }
     if(dealerState === '' && value === 21) {
       handleDealerState('Black Jack')
     }
   }, [value])
+  
+  useEffect(() => {
+    if(dealerState === 'dealt same val' && dealerHand.length != 1 && value < 21 && shouldHit() ){
+      refetch()
+    }
+  }, [dealerState])
 
   return (
     <div className='container text-center text-danger'>
@@ -55,7 +58,7 @@ const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, ha
           if(dealerHand.length > 4){return <div className='col-2 col-sm-auto' key={index}><Card imgSrc={card.images.png}/></div>}
           return(
             <div className='col-3 col-sm-auto' key={index} >
-              <Card imgSrc={card.images.png} />
+              <Card imgSrc={card.images?.png} />
             </div>
             
           )
