@@ -3,7 +3,6 @@ import Card from "./Card"
 import { useQuery } from '@tanstack/react-query'
 
 const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, handleDealerState}) => {
-  const [timesThrough, setTimesTrough] = useState(0)
   async function getCard(){
     const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=1')
     return await res.json()

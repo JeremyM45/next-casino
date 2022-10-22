@@ -46,28 +46,6 @@ const BlackJack = ({ changeShownGame }) => {
     refetchOnWindowFocus: false,
     onSuccess: async (d) => {
       setPlayerHand([d.cards[0], d.cards[1]])
-      // const testDealerCards = {
-      //       "code": "2H",
-      //       "image": "https://deckofcardsapi.com/static/img/2H.png",
-      //       "images": {
-      //           "svg": "https://deckofcardsapi.com/static/img/2H.svg",
-      //           "png": "https://deckofcardsapi.com/static/img/2H.png"
-      //       },
-      //       "value": "2",
-      //       "suit": "HEARTS"
-      //   }
-      //   const testHiddenCard = {
-      //     "code": "AH",
-      //     "image": "https://deckofcardsapi.com/static/img/AH.png",
-      //     "images": {
-      //         "svg": "https://deckofcardsapi.com/static/img/AH.svg",
-      //         "png": "https://deckofcardsapi.com/static/img/AH.png"
-      //     },
-      //     "value": "ACE",
-      //     "suit": "HEARTS"
-      //   }
-      // setDealerHand([testDealerCards])
-      // setHiddenCard(testHiddenCard)
       if(evaluateHand([d.cards[2], d.cards[3]]) === 21) {
         setDealerHand([d.cards[2], d.cards[3]])
       } else {
@@ -101,7 +79,6 @@ const BlackJack = ({ changeShownGame }) => {
 
   const evaluateHand = (hand) => {
     const value = 0
-    
     hand.map((card) => {
       if(card.value === 'JACK' || card.value === 'QUEEN' || card.value === 'KING') {
         value += 10
@@ -138,7 +115,6 @@ const BlackJack = ({ changeShownGame }) => {
   useEffect(() => {
     setPlayerHandValue(evaluateHand(playerHand))
     setDealerHandValue(evaluateHand(dealerHand))
-    
   }, [playerHand, dealerHand])
 
   useEffect(() => {

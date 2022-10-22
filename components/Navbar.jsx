@@ -8,7 +8,7 @@ import NavItem from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar';
 import Link from "next/link";
 
-export const NavBar = ({ changeShownGame }) => {
+export const NavBar = ({ changeShownGame, setAccountFormVisable, setIsSignup }) => {
   const { user, logOut } = useAuth()
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -23,10 +23,15 @@ export const NavBar = ({ changeShownGame }) => {
               <Nav.Link eventKey="1">
                 <Button className={`btn ${styles.button}`} onClick={() => changeShownGame('')}>Home</Button>
               </Nav.Link>
-              {user && (
+              {user ? (
                 <Nav.Link eventKey="1">
                   <Button className={`btn-danger ${styles.button}`} varient="alert" onClick={() => {logOut()}}>Logout</Button>
-                </Nav.Link>)
+                </Nav.Link>) : (
+                  <Nav.Link eventKey='1'>
+                    <Button  varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>
+                    <Button  variant="success" onClick={() => (setIsSignup(true), setAccountFormVisable(true))}>Signup</Button>
+                  </Nav.Link>
+                )
               }
             </Nav>
         </Navbar.Collapse>
