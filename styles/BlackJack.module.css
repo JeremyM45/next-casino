@@ -1,20 +1,59 @@
 
 .game{
-  margin-top: 10rem;
+  background-color: rgb(2, 56, 2);
+
+}
+
+.dealer{
+  
 }
 
 .playerCard{
-  margin-top: 7rem;
+  margin-top: 0;
 }
 
 .playerButtons{
   display: flex;
   
 }
-.playerButtonHit{
 
+.playerButtonHit{
+  width: 12ch;
 }
 
 .playerButtonHold{
+  width: 12ch;
   margin-right: auto;
+}
+
+@media only screen and (min-width: 760px) {
+  .playerButtonHold{
+    margin-left: auto;
+    margin-right: 0.5rem;
+  }
+  .playerButtonHit{
+    margin-left: 0.5rem;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-height: 660px) {
+  .playerCard{
+    margin-top: 8rem;
+  }
+  .game{
+    padding-top: 2rem;
+  }
+}
+
+@media only screen and (min-height: 860px) {
+  .playerCard{
+    margin-top: 10rem;
+  }
+}
+
+@media only screen and (min-height: 1200px) {
+  .playerCard{
+    margin-top: 22rem;
+  }
 }

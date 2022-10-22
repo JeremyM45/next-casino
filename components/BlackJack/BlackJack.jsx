@@ -142,7 +142,7 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   return (
-    <div className='mb-4'>
+    <div>
       {endGameText != '' ? (
         <EndGameModal 
           newGameClear={clearData} 
@@ -153,28 +153,33 @@ const BlackJack = ({ changeShownGame }) => {
           userName={user.email}
           whoBust={whoBust}
         /> ) : null}
-        <div >
-          <div className={styles.dealer}>
-            <Dealer 
-              dealerHand={dealerHand} 
-              value={dealerHandValue} 
-              playerHandValue={playerHandValue} 
-              dealerState={dealerState} 
-              handleDealerState={handleDealerState} 
-              updateHand={updateDealerHand} 
-            />
+        <div className={`${styles.game} container`}>
+          <div className=''>
+            <div className={`${styles.dealer} col-12`}>
+              <Dealer 
+                dealerHand={dealerHand} 
+                value={dealerHandValue} 
+                playerHandValue={playerHandValue} 
+                dealerState={dealerState} 
+                handleDealerState={handleDealerState} 
+                updateHand={updateDealerHand} 
+              />
+            </div>
           </div>
-          <div className={styles.playerCard} >
-            <Player 
-              playerHand={playerHand}
-              updateHand={updatePlayerHand}
-              value={playerHandValue} 
-              playerState={playerState} 
-              updatePlayerState={handlePlayerState} 
-              canClick={canClick}
-              userName={user.email}
-            />
+          <div className='row-12'>
+            <div className={`${styles.playerCard} col-12`} >
+              <Player 
+                playerHand={playerHand}
+                updateHand={updatePlayerHand}
+                value={playerHandValue} 
+                playerState={playerState} 
+                updatePlayerState={handlePlayerState} 
+                canClick={canClick}
+                userName={user.email}
+              />
+            </div>
           </div>
+          
         </div>
     </div>
   )
