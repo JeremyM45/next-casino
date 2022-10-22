@@ -6,18 +6,47 @@
   background-color: black;
   margin-right: auto;
   margin-left: auto;
+  
+}
+
+.cardTextContainer{
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  font-family: 'Lobster', cursive;
+  
 }
 
 .title{
-  z-index: 1;
   position: relative;
   color: white;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: antiquewhite;
+  text-shadow: -2px -2px 0 #000, 1px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
 .description{
-  z-index: 1;
   position: relative;
   color: white;
+  z-index: 1;
+  font-size: large;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: antiquewhite;
+  text-shadow: -2px -2px 0 #000, 1px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.comingSoonText{
+  position: relative;
+  color: white;
+  z-index: 1;
+  text-align: center;
+  margin-top: 6rem;
+  color: antiquewhite;
+  text-shadow: -2px -2px 0 #000, 1px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
 .image{
@@ -36,11 +65,52 @@
     width: 20rem;
     height: 12rem;
   }
+  .comingSoonText{
+    margin-top: 2rem;
+  }
+  .description{
+    font-size: medium;
+  }
 }
 
 @media only screen and (max-width: 760px) {
   .card  {
     width: 10rem;
     height: 8rem;
+  }
+  .title{
+    margin-bottom: 1rem;
+    font-size: large;
+  }
+  .description{
+    margin-bottom: 0rem;
+    font-size: x-small;
+  }
+  .comingSoonText{
+    
+    font-size: medium;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .card  {
+    
+    width: 9rem;
+    height: 7rem;
+  }
+  .comingSoonText{
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (max-width: 340px) {
+  .card  {
+    margin-left: 4rem;
+  }
+}
+
+@media only screen and (max-width: 240px) {
+  .card  {
+    margin-left: 2rem;
   }
 }

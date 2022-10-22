@@ -31,13 +31,13 @@ export const NavBar = ({ changeShownGame, setAccountFormVisable, setIsSignup }) 
               <Nav.Link eventKey="1">
                 <Button className={styles.buttonBlackJack} variant="outline-warning" onClick={() => {user ? changeShownGame('Black Jack') : setAccountFormVisable(true)}}>Black Jack</Button>
               </Nav.Link>
-              <Nav.Link eventKey="1">
+              <Nav.Link eventKey="2">
                 <Button className={styles.buttonThreeCard} variant="outline-primary" onClick={() => {user ? changeShownGame('Three Card Poker') : setAccountFormVisable(true)}}>Three Card Poker</Button>
               </Nav.Link>
-              <Nav.Link eventKey="1">
+              <Nav.Link eventKey="3">
                 <Button className={styles.buttonRoulette} variant="outline-danger" onClick={() => {user ? changeShownGame('Roulette') : setAccountFormVisable(true)}}>Roulette</Button>
               </Nav.Link>
-              <Nav.Link eventKey="1">
+              <Nav.Link eventKey="4">
                 <Button className={styles.buttonSnailRace} variant="outline-success" onClick={() => {user ? changeShownGame('Snail Race') : setAccountFormVisable(true)}}>Snail Race</Button>
               </Nav.Link>
             </Nav>

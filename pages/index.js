@@ -38,18 +38,46 @@ export default function Home() {
               <div className={styles.homeCards}>
                 <div className='row'>
                   <div className={`${styles.homeCard} col-auto`}>
-                    <HomeCards imgSrc='/blackjack.webp' title='Black Jack' description='Hit to 21' handelShowGameChange={handelShowGameChange} setAccountFormVisable={setAccountFormVisable}/>
+                    <HomeCards 
+                      imgSrc='/blackjack.webp' 
+                      title='Black Jack' 
+                      description='Play to 21' 
+                      handelShowGameChange={handelShowGameChange} 
+                      setAccountFormVisable={setAccountFormVisable}
+                      comingSoon={false}
+                    />
                   </div>
                   <div className={`${styles.homeCard} col-auto`}>
-                    <HomeCards imgSrc='/three-card-poker.webp' title='Three Card Poker' description='Hit to 21' handelShowGameChange={handelShowGameChange} setAccountFormVisable={setAccountFormVisable}/>
+                    <HomeCards 
+                      imgSrc='/three-card-poker.webp'
+                      title='Three Card Poker' 
+                      description='Get the best hand' 
+                      handelShowGameChange={handelShowGameChange} 
+                      setAccountFormVisable={setAccountFormVisable}
+                      comingSoon={true}
+                    />
                   </div>
                 </div>
                 <div className='row '>
                   <div className={`${styles.homeCard} col-auto`}>
-                    <HomeCards imgSrc='/roulette.webp' title='Roulette' description='Hit to 21' handelShowGameChange={handelShowGameChange} setAccountFormVisable={setAccountFormVisable}/>
+                    <HomeCards 
+                      imgSrc='/roulette.webp' 
+                      title='Roulette' 
+                      description="Guess where the ball's gonna land...?" 
+                      handelShowGameChange={handelShowGameChange} 
+                      setAccountFormVisable={setAccountFormVisable}
+                      comingSoon={true}
+                    />
                   </div>
                   <div className={`${styles.homeCard} col-auto`}>
-                    <HomeCards imgSrc='/snail-race.webp' title='Snail Race' description='Hit to 21' handelShowGameChange={handelShowGameChange} setAccountFormVisable={setAccountFormVisable}/>
+                    <HomeCards 
+                      imgSrc='/snail-race.webp' 
+                      title='Snail Race' 
+                      description='Guess which snail is the fastest' 
+                      handelShowGameChange={handelShowGameChange} 
+                      setAccountFormVisable={setAccountFormVisable}
+                      comingSoon={true}
+                    />
                   </div>
                 </div>
               </div>
