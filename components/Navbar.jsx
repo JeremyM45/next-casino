@@ -2,40 +2,46 @@
 import { useAuth } from "../context/AuthContext";
 import styles from '../styles/Navbar.module.css'
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import NavItem from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar';
-import Link from "next/link";
 
 export const NavBar = ({ changeShownGame, setAccountFormVisable, setIsSignup }) => {
   const { user, logOut } = useAuth()
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand>Casino</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
+    <Navbar collapseOnSelect='true' expand="lg" bg="dark" variant="dark" className={styles.frame}>
+      <Nav.Link eventKey="1">
+        <Navbar.Brand onClick={() => changeShownGame('')}>Casino</Navbar.Brand>
+      </Nav.Link>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          
+          <Nav className={`${styles.nav}`}>
+            <div className={styles.accountButtons}>
+            {user ? (
               <Nav.Link eventKey="1">
-                <Button className={`btn-warning ${styles.button}`} onClick={() => changeShownGame('Black Jack')}>Black Jack</Button>
-              </Nav.Link>
-              <Nav.Link eventKey="1">
-                <Button className={`btn ${styles.button}`} onClick={() => changeShownGame('')}>Home</Button>
-              </Nav.Link>
-              {user ? (
-                <Nav.Link eventKey="1">
-                  <Button className={`btn-danger ${styles.button}`} varient="alert" onClick={() => {logOut()}}>Logout</Button>
-                </Nav.Link>) : (
+                <Button className={`btn-danger ${styles.button}`} varient="alert" onClick={() => {logOut()}}>Logout</Button>
+              </Nav.Link>) : (
                   <Nav.Link eventKey='1'>
-                    <Button  varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>
-                    <Button  variant="success" onClick={() => (setIsSignup(true), setAccountFormVisable(true))}>Signup</Button>
+                    <Button className={`${styles.button}`} varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>
+                    <Button className={`${styles.button}`}  variant="success" onClick={() => (setIsSignup(true), setAccountFormVisable(true))}>Signup</Button>
                   </Nav.Link>
-                )
-              }
+
+              )}
+            </div>
+              <Nav.Link eventKey="1">
+                <Button className={styles.buttonBlackJack} variant="outline-warning" onClick={() => {user ? changeShownGame('Black Jack') : setAccountFormVisable(true)}}>Black Jack</Button>
+              </Nav.Link>
+              <Nav.Link eventKey="1">
+                <Button className={styles.buttonThreeCard} variant="outline-primary" onClick={() => {user ? changeShownGame('Three Card Poker') : setAccountFormVisable(true)}}>Three Card Poker</Button>
+              </Nav.Link>
+              <Nav.Link eventKey="1">
+                <Button className={styles.buttonRoulette} variant="outline-danger" onClick={() => {user ? changeShownGame('Roulette') : setAccountFormVisable(true)}}>Roulette</Button>
+              </Nav.Link>
+              <Nav.Link eventKey="1">
+                <Button className={styles.buttonSnailRace} variant="outline-success" onClick={() => {user ? changeShownGame('Snail Race') : setAccountFormVisable(true)}}>Snail Race</Button>
+              </Nav.Link>
             </Nav>
         </Navbar.Collapse>
-      </Container>
     </Navbar>
   );
 }

@@ -1,6 +1,11 @@
 .frame{
-  background-color: rgb(255, 255, 255);
-  padding: 1rem;
+
+  
+}
+
+.nav{
+  width: 100%;
+  display: flex;
 }
 
 .button {
@@ -8,11 +13,106 @@
   margin-right: 2rem;
 }
 
-/* .navbarToggle{
-  background-color: rgb(221, 241, 0);
+.accountButtons{
+  margin-right: 5rem;
 }
 
-.offCanvas{
-  background-color: rgb(33,37,41);
+.buttonBlackJack{
+  margin-left: 12rem;
+}
+
+.buttonThreeCard{
+  margin-left: 7rem;
+  color: rgb(79, 251, 243);
+  border-color: rgb(79, 251, 243);
+}
+.buttonThreeCard:hover{
+  background-color: rgb(80, 225, 218);
+  border-color: rgb(79, 251, 243);
+  color: black;
+}
+
+.buttonRoulette{
+  margin-left: 7rem;
+  color: red;
+  border-color: red;
+}
+
+.buttonSnailRace{
+  margin-left: 7rem;
+  color: rgb(7, 167, 7);
+  border-color: rgb(7, 167, 7);
+}
+
+@media only screen and (max-width: 1700px) {
+  .buttonBlackJack{
+    margin-left: 4rem;
+  }
   
-} */
+  .buttonThreeCard{
+    margin-left: 4rem;
+  }
+  
+  .buttonRoulette{
+    margin-left: 4rem;
+  }
+  
+  .buttonSnailRace{
+    margin-left: 4rem;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .button {
+    margin-left: 0rem;
+    margin-right: 1rem;
+  }
+  
+  .accountButtons{
+    margin-right: 2rem;
+  }
+
+  .buttonBlackJack{
+    margin-left: 2rem;
+  }
+  
+  .buttonThreeCard{
+    margin-left: 2rem;
+  }
+  
+  .buttonRoulette{
+    margin-left: 2rem;
+  }
+  
+  .buttonSnailRace{
+    margin-left: 2rem;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .button {
+    margin-left: 0rem;
+    margin-right: 1rem;
+  }
+  
+  .accountButtons{
+    margin-right: 2rem;
+  }
+  
+  .buttonBlackJack{
+    margin-left: 0rem;
+  }
+  
+  .buttonThreeCard{
+    margin-left: 0rem;
+  }
+  
+  .buttonRoulette{
+    margin-left: 0rem;
+  }
+  
+  .buttonSnailRace{
+    margin-left: 0rem;
+  }
+  
+}
