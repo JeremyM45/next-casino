@@ -35,9 +35,8 @@ export function AuthContextProvider({ children }) {
     setUser(null)
     await signOut(auth)
   }
-
   return (
-    <AuthContext.Provider value={{user, logIn, signUp, logOut}}>
+    <AuthContext.Provider value={{loading, user, logIn, signUp, logOut}}>
       {children}
     </AuthContext.Provider>
   )
