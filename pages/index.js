@@ -7,12 +7,15 @@ import { useEffect, useState } from 'react'
 import BlackJack from '../components/BlackJack/BlackJack'
 import AccountForm from '../components/Forms/AccountForm';
 import HomeCards from '../components/HomeCards';
+import ComingSoonModal from '../components/ComingSoonModal'
+
 
 export default function Home() {
   const { user, logOut } = useAuth()
   const [accountFormVisable, setAccountFormVisable] = useState(false)
   const [shownGame, setShownGame] = useState('')
   const [isSignup, setIsSignup] = useState(false)
+  const [showComingSoonModal , setShowComingSoonModal] = useState(false)
 
   function handleShowLogIn(){
     setLogInVisiable(true)
@@ -45,6 +48,7 @@ export default function Home() {
                       handelShowGameChange={handelShowGameChange} 
                       setAccountFormVisable={setAccountFormVisable}
                       comingSoon={false}
+                      setShowComingSoonModal={setShowComingSoonModal}
                     />
                   </div>
                   <div className={`${styles.homeCard} col-auto`}>
@@ -55,6 +59,7 @@ export default function Home() {
                       handelShowGameChange={handelShowGameChange} 
                       setAccountFormVisable={setAccountFormVisable}
                       comingSoon={true}
+                      setShowComingSoonModal={setShowComingSoonModal}
                     />
                   </div>
                 </div>
@@ -67,6 +72,7 @@ export default function Home() {
                       handelShowGameChange={handelShowGameChange} 
                       setAccountFormVisable={setAccountFormVisable}
                       comingSoon={true}
+                      setShowComingSoonModal={setShowComingSoonModal}
                     />
                   </div>
                   <div className={`${styles.homeCard} col-auto`}>
@@ -77,6 +83,7 @@ export default function Home() {
                       handelShowGameChange={handelShowGameChange} 
                       setAccountFormVisable={setAccountFormVisable}
                       comingSoon={true}
+                      setShowComingSoonModal={setShowComingSoonModal}
                     />
                   </div>
                 </div>
@@ -89,7 +96,7 @@ export default function Home() {
               {accountFormVisable ?  <AccountForm handleShowAccountForm={setAccountFormVisable} setIsSignup={setIsSignup} isSignup={isSignup} />: null}
             </>
           )}
-          
+          {showComingSoonModal && <ComingSoonModal setShowComingSoonModal={setShowComingSoonModal}/>}
           {shownGame === 'Black Jack' && <BlackJack changeShownGame={handelShowGameChange} />}
         </main>
       </div>
