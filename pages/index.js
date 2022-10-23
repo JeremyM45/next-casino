@@ -44,7 +44,7 @@ export default function Home() {
       
       
       <div className={styles.container}>
-      <NavBar changeShownGame={handelShowGameChange} setIsSignup={setIsSignup} setAccountFormVisable={setAccountFormVisable}/>
+      <NavBar changeShownGame={handelShowGameChange} setIsSignup={setIsSignup} setAccountFormVisable={setAccountFormVisable} setShowComingSoonModal={setShowComingSoonModal}/>
         <main className='container'>
           {shownGame === 'Black Jack' && <BlackJack changeShownGame={handelShowGameChange} />}
           {shownGame === '' && (
