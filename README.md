@@ -125,7 +125,7 @@ Now the dealer is dealt a 7 which pushes their total 24 causing them to bust.
 The round over modal pops up with the results and the player's lifetime stats update, the player can then choose to play again or return to the Home Menu.
 
 ## Road Map
-Below are the items that are wither under development or are planned for future development. Items labeled with (MVP) are part of the minimum viable project
+Below are the items that are either under development or are planned for future development. Items labeled with (MVP) are part of the minimum viable project
 
 #### More Games
 * Three Card Poker (MVP)
