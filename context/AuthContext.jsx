@@ -49,8 +49,8 @@ export function AuthContextProvider({ children }) {
         snailRaceTies: 0,
       })
     })
-    logOut()
-    logIn(email, password)
+    await logOut()
+    await logIn(email, password)
   }
   
   async function logOut() {

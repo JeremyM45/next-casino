@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import sytles from '../../styles/AccountForm.module.css'
-import {doc, setDoc} from 'firebase/firestore'
-import {db} from '../../config/firebase'
 
 const Signup = ({setError}) => {
   const{user, signUp, setDisplayName} = useAuth()
@@ -23,11 +21,12 @@ const Signup = ({setError}) => {
   
   const handleSignUp = async (e) => {
     e.preventDefault()
-    if(data.displayName.length < 4){
+    const userName = data.displayName.trim()
+    if(userName.length < 4){
       setError('User Name must be atleast 4 characters')
       return
     }
-    if(data.password.length < 6){
+    if(userName < 6){
       setError('Password must be atleast 6 characters')
       return
     }
@@ -36,7 +35,7 @@ const Signup = ({setError}) => {
       return
     }
     try{
-      await signUp(data.email, data.password, data.displayName)
+      await signUp(data.email, data.password, userName)
     } catch(err){
       console.log(err)
       setError('invalid email')
