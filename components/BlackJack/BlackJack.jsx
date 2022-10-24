@@ -22,18 +22,21 @@ const BlackJack = ({ changeShownGame }) => {
   const [whoBust, setWhoBust] = useState('')
   const [blackJackStats, setBlackJackStats] = useState({})
   
-  const userStatsRef = doc(db, 'users', `${user.uid}`)
+  const userStatsRef = doc(db, 'users', `${user?.uid}`)
 
   useEffect(() => {
-    onSnapshot(userStatsRef, (doc) => {
-      setBlackJackStats({
-        wins: doc.data().blackJackWins,
-        loses: doc.data().blackJackLosses,
-        games: doc.data().blackJackGames,
-        ties: doc.data().blackJackTies,
+    if(user)
+    { 
+      onSnapshot(userStatsRef, (doc) => {
+        setBlackJackStats({
+          wins: doc.data().blackJackWins,
+          loses: doc.data().blackJackLosses,
+          games: doc.data().blackJackGames,
+          ties: doc.data().blackJackTies,
+        })
       })
-    })
-  }, [user.uid])
+    }
+  }, [user?.uid])
 
   const clearData = () => {
     setPlayerHand([])
@@ -118,14 +121,14 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   const displayWinner = () => {
-    if(playerHandValue > 21){setWhoBust(`${user.email} Busts`)}
+    if(playerHandValue > 21){setWhoBust(`${user.displayName} Busts`)}
     if(dealerHandValue > 21){setWhoBust('Dealer Busts')}
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
       updateLose()
       return 'The Dealer Wins'
     } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
       updateWin()
-      return `${user.email} Wins`
+      return `${user.displayName} Wins`
     } else{
       updateTie()
       return 'Tie Game'
@@ -183,11 +186,11 @@ const BlackJack = ({ changeShownGame }) => {
 
   return (
     <div>
-      <div className='text-white'>
-        <p>Wins: {blackJackStats.wins}</p>
-        <p>Loses: {blackJackStats.loses}</p>
-        <p>Games: {blackJackStats.games}</p>
-        <p>Ties: {blackJackStats.ties}</p>
+      <div className={styles.stats}>
+        <p className={styles.stat}>Wins: <span className={styles.statWins}>{blackJackStats.wins}</span></p>
+        <p className={styles.stat}>Loses: <span className={styles.statLoses}>{blackJackStats.loses}</span></p>
+        <p className={styles.stat}>Ties: <span className={styles.statTies}>{blackJackStats.ties}</span></p>
+        <p className={styles.stat}>Total Games: <span className={styles.statTotalGames}>{blackJackStats.games}</span></p>
       </div>
       
       {endGameText != '' ? (
@@ -197,7 +200,7 @@ const BlackJack = ({ changeShownGame }) => {
           endGameText={endGameText}
           playerHandValue={playerHandValue}
           dealerHandValue={dealerHandValue}
-          userName={user.email}
+          userName={user.displayName}
           whoBust={whoBust}
         /> ) : null}
         <div className={`${styles.game} container`}>

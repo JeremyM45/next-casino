@@ -19,7 +19,16 @@ export const NavBar = ({ changeShownGame, setAccountFormVisable, setIsSignup, se
             <div className={styles.accountButtons}>
             {user ? (
               <Nav.Link eventKey="1">
-                <Button className={`btn-danger ${styles.button}`} varient="alert" onClick={() => {logOut()}}>Logout</Button>
+                <Button 
+                  className={`btn-danger ${styles.button}`} 
+                  varient="alert" 
+                  onClick={() => {
+                    changeShownGame('')
+                    logOut()
+                  }}
+                >
+                  Logout
+                </Button>
               </Nav.Link>) : (
                   <Nav.Link eventKey='1'>
                     <Button className={`${styles.button}`} varient="primary" onClick={() => (setIsSignup(false), setAccountFormVisable(true))}>Login</Button>

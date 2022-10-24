@@ -26,6 +26,39 @@
   margin-right: auto;
 }
 
+.stats{
+  color: antiquewhite;
+  display: flex;
+  font-size: large;
+  font-family: 'Lobster', cursive;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.stat{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.statWins{
+  margin-left: 0.25rem;
+  color: rgb(7, 167, 7);
+}
+
+.statLoses{
+  margin-left: 0.25rem;
+  color: red;
+}
+
+.statTotalGames{
+  margin-left: 0.25rem;
+  color: rgb(79, 251, 243);
+}
+
+.statTies{
+  margin-left: 0.25rem;
+  color: yellow;
+}
+
 @media only screen and (min-width: 760px) {
   .playerButtonHold{
     margin-left: auto;
@@ -44,11 +77,15 @@
   .game{
     padding-top: 2rem;
   }
+  
 }
 
 @media only screen and (min-height: 860px) {
   .playerCard{
     margin-top: 10rem;
+  }
+  .stats{
+    font-size: x-large;
   }
 }
 
