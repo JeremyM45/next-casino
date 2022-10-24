@@ -2,13 +2,16 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import sytles from '../../styles/AccountForm.module.css'
+import {doc, setDoc} from 'firebase/firestore'
+import {db} from '../../config/firebase'
 
 const Signup = ({setError}) => {
-  const{user, signUp} = useAuth()
+  const{user, signUp, setDisplayName} = useAuth()
   const [data, setData] = useState({
     email: '',
     password: '',
-    passwordConfirm: ''
+    passwordConfirm: '',
+    displayName: ''
   })
 
   const passCheck = () => {
@@ -17,7 +20,7 @@ const Signup = ({setError}) => {
     }
     return false
   }
-
+  
   const handleSignUp = async (e) => {
     e.preventDefault()
     if(data.password.length < 6){
@@ -29,11 +32,12 @@ const Signup = ({setError}) => {
       return
     }
     try{
-      await signUp(data.email, data.password)
+      await signUp(data.email, data.password, data.displayName)
+      // await setDisplayName(data.displayName)
     } catch(err){
+      console.log(err)
       setError('invalid email')
     }
-    
   }
 
   return (
@@ -66,6 +70,7 @@ const Signup = ({setError}) => {
           />
         <Form.Label>Password</Form.Label>
       </Form.Floating>
+
       <Form.Floating className={sytles.signupPasswords}>
         <Form.Control 
             type='password'
@@ -78,8 +83,22 @@ const Signup = ({setError}) => {
           }
           />
         <Form.Label>Confirm Password</Form.Label>
-        
       </Form.Floating>
+
+      <Form.Floating className={sytles.signupPasswords}>
+        <Form.Control 
+            type='text'
+            placeholder="User Name"
+            required
+            onChange={(e) => setData({
+              ...data,
+              displayName: e.target.value
+            })
+          }
+          />
+        <Form.Label>User Name</Form.Label>
+      </Form.Floating>
+
       <div className="justify-content-center row row-cols-5">
         <Button type="submit" variant="success">Sign Up</Button>
       </div>

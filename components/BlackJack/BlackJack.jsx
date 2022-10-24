@@ -5,6 +5,8 @@ import Dealer from './Dealer'
 import Player from './Player'
 import { useAuth } from "../../context/AuthContext";
 import EndGameModal from './EndGameModal'
+import {doc, getDoc, onSnapshot, updateDoc} from 'firebase/firestore'
+import {db} from '../../config/firebase'
 
 const BlackJack = ({ changeShownGame }) => {
   const { user } = useAuth()
@@ -18,7 +20,21 @@ const BlackJack = ({ changeShownGame }) => {
   const [dealerState, setDealerState] = useState('')
   const [endGameText, setEndGameText] = useState('')
   const [whoBust, setWhoBust] = useState('')
+  const [blackJackStats, setBlackJackStats] = useState({})
   
+  const userStatsRef = doc(db, 'users', `${user.uid}`)
+
+  useEffect(() => {
+    onSnapshot(userStatsRef, (doc) => {
+      setBlackJackStats({
+        wins: doc.data().blackJackWins,
+        loses: doc.data().blackJackLosses,
+        games: doc.data().blackJackGames,
+        ties: doc.data().blackJackTies,
+      })
+    })
+  }, [user.uid])
+
   const clearData = () => {
     setPlayerHand([])
     setDealerHand([])
@@ -105,12 +121,36 @@ const BlackJack = ({ changeShownGame }) => {
     if(playerHandValue > 21){setWhoBust(`${user.email} Busts`)}
     if(dealerHandValue > 21){setWhoBust('Dealer Busts')}
     if(playerState === 'Bust' || dealerHandValue > playerHandValue && dealerHandValue < 22){
+      updateLose()
       return 'The Dealer Wins'
     } else if(playerHandValue > dealerHandValue && playerHandValue < 22 || playerHandValue < 22 && dealerHandValue > 21){
+      updateWin()
       return `${user.email} Wins`
     } else{
+      updateTie()
       return 'Tie Game'
     }
+  }
+
+  const updateWin = async () => {
+    await updateDoc(userStatsRef, {
+      blackJackWins: blackJackStats.wins + 1,
+      blackJackGames: blackJackStats.games + 1 
+    })
+  }
+
+  const updateLose = async () => {
+    await updateDoc(userStatsRef, {
+      blackJackLosses: blackJackStats.loses + 1,
+      blackJackGames: blackJackStats.games + 1 
+    })
+  }
+
+  const updateTie = async () => {
+    await updateDoc(userStatsRef, {
+      blackJackTies: blackJackStats.ties + 1,
+      blackJackGames: blackJackStats.games + 1 
+    })
   }
 
   useEffect(() => {
@@ -143,6 +183,13 @@ const BlackJack = ({ changeShownGame }) => {
 
   return (
     <div>
+      <div className='text-white'>
+        <p>Wins: {blackJackStats.wins}</p>
+        <p>Loses: {blackJackStats.loses}</p>
+        <p>Games: {blackJackStats.games}</p>
+        <p>Ties: {blackJackStats.ties}</p>
+      </div>
+      
       {endGameText != '' ? (
         <EndGameModal 
           newGameClear={clearData} 
@@ -175,7 +222,7 @@ const BlackJack = ({ changeShownGame }) => {
                 playerState={playerState} 
                 updatePlayerState={handlePlayerState} 
                 canClick={canClick}
-                userName={user.email}
+                userName={user.displayName}
               />
             </div>
           </div>

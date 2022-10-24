@@ -12,6 +12,7 @@ import ComingSoonModal from '../components/ComingSoonModal'
 
 export default function Home() {
   const { user, loading } = useAuth()
+
   const [accountFormVisable, setAccountFormVisable] = useState(false)
   const [shownGame, setShownGame] = useState('')
   const [isSignup, setIsSignup] = useState(false)
@@ -25,6 +26,7 @@ export default function Home() {
   function handelShowGameChange(newShownGame){
     setShownGame(newShownGame)
   }
+
   if(loading){
     return(
       <>
