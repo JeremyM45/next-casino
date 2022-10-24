@@ -38,12 +38,11 @@ const Signup = ({setError}) => {
     try{
       await signUp(email, password, userName)
     } catch(err){
-      console.log(err.message)
-      setError(getErrorMessageUiText(err.message))
+      setError(getSignupErrorMessageUiText(err.message))
     }
   }
 
-  const getErrorMessageUiText = (errorMessage) => {
+  const getSignupErrorMessageUiText = (errorMessage) => {
     if(errorMessage === 'Firebase: Error (auth/invalid-email).'){
       return 'Invalid Email Address'
     }
