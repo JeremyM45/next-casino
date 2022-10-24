@@ -24,6 +24,7 @@ const Signup = ({setError}) => {
     const userName = data.displayName.trim()
     const password = data.password.trim()
     const email = data.email.trim()
+    
     if(userName.length < 4){
       setError('User Name must be atleast 4 characters')
       return

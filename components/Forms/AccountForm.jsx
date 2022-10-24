@@ -22,7 +22,7 @@ const AccountForm = ({ handleShowAccountForm, isSignup, setIsSignup }) => {
           <Modal.Title>{isSignup ? 'Signup' : 'Login'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {error != '' && <h2 className="text-danger">{error}</h2>}
+          {error != '' && <p className={styles.errorMessage}>{error}</p>}
           {isSignup ? <Signup setError={setError}/> : <Login setError={setError}/> }
         </Modal.Body>
         <Modal.Footer>
