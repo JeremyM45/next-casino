@@ -23,6 +23,10 @@ const Signup = ({setError}) => {
   
   const handleSignUp = async (e) => {
     e.preventDefault()
+    if(data.displayName.length < 4){
+      setError('User Name must be atleast 4 characters')
+      return
+    }
     if(data.password.length < 6){
       setError('Password must be atleast 6 characters')
       return
@@ -33,7 +37,6 @@ const Signup = ({setError}) => {
     }
     try{
       await signUp(data.email, data.password, data.displayName)
-      // await setDisplayName(data.displayName)
     } catch(err){
       console.log(err)
       setError('invalid email')
