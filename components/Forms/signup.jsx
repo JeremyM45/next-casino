@@ -22,23 +22,35 @@ const Signup = ({setError}) => {
   const handleSignUp = async (e) => {
     e.preventDefault()
     const userName = data.displayName.trim()
+    const password = data.password.trim()
+    const email = data.email.trim()
     if(userName.length < 4){
       setError('User Name must be atleast 4 characters')
       return
     }
-    if(userName < 6){
-      setError('Password must be atleast 6 characters')
-      return
+    if(password.length < 6){
+      return setError('Password must be at least 6 characters')
     }
     if(!passCheck()){
       setError('Passwords do not match')
       return
     }
     try{
-      await signUp(data.email, data.password, userName)
+      await signUp(email, password, userName)
     } catch(err){
-      console.log(err)
-      setError('invalid email')
+      console.log(err.message)
+      setError(getErrorMessageUiText(err.message))
+    }
+  }
+
+  const getErrorMessageUiText = (errorMessage) => {
+    if(errorMessage === 'Firebase: Error (auth/invalid-email).'){
+      return 'Invalid Email Address'
+    }
+    if(errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).'){
+      return 'Password must be at least 6 characters'
+    } else {
+      return `Error Could Not Handle Request: ${errorMessage}`
     }
   }
 
