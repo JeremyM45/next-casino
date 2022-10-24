@@ -114,9 +114,12 @@ Upon clicking the 'Hold' button the player will no longer be able to hit and the
 
 ![After Holding](https://i.gyazo.com/2c3cca0b835bf82903653398e2618583.png)
 
-In the above example the player held at 19 and the dealer on had an Ace and a 7 valuing at 18. 
+In the above example the player held at 19 and the dealer on had an Ace and a 7 valuing at 18.
+
 Ordinarily a dealer won't hit above 16, but since this is a one on one scenario the dealer will still hit if their value is lower than the players.
-So the dealer hits and gets a 9 since the 9 + 18 would total over 21 the Ace's value now becomes 1 so the dealers new total value is 17, which is still lower than the player's 19 so the dealer hits again
+
+So the dealer hits and gets a 9 since the 9 + 18 would total over 21 the Ace's value now becomes 1 so the dealers new total value is 17, which is still lower than the player's 19 so the dealer hits again.
+
 Now the dealer is dealt a 7 which pushes their total 24 causing them to bust.
 
 The round over modal pops up with the results and the player's lifetime stats update, the player can then choose to play again or return to the Home Menu.
