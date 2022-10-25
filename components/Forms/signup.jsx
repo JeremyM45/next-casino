@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import sytles from '../../styles/AccountForm.module.css'
-import {doc, setDoc} from 'firebase/firestore'
-import {db} from '../../config/firebase'
 
 const Signup = ({setError}) => {
   const{user, signUp, setDisplayName} = useAuth()
@@ -23,23 +21,36 @@ const Signup = ({setError}) => {
   
   const handleSignUp = async (e) => {
     e.preventDefault()
-    if(data.displayName.length < 4){
+    const userName = data.displayName.trim()
+    const password = data.password.trim()
+    const email = data.email.trim()
+    
+    if(userName.length < 4){
       setError('User Name must be atleast 4 characters')
       return
     }
-    if(data.password.length < 6){
-      setError('Password must be atleast 6 characters')
-      return
+    if(password.length < 6){
+      return setError('Password must be at least 6 characters')
     }
     if(!passCheck()){
       setError('Passwords do not match')
       return
     }
     try{
-      await signUp(data.email, data.password, data.displayName)
+      await signUp(email, password, userName)
     } catch(err){
-      console.log(err)
-      setError('invalid email')
+      setError(getSignupErrorMessageUiText(err.message))
+    }
+  }
+
+  const getSignupErrorMessageUiText = (errorMessage) => {
+    if(errorMessage === 'Firebase: Error (auth/invalid-email).'){
+      return 'Invalid Email Address'
+    }
+    if(errorMessage === 'Firebase: Password should be at least 6 characters (auth/weak-password).'){
+      return 'Password must be at least 6 characters'
+    } else {
+      return `Error Could Not Handle Request: ${errorMessage}`
     }
   }
 
