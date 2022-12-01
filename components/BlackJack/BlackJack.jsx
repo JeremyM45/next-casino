@@ -21,11 +21,12 @@ const BlackJack = ({ changeShownGame }) => {
   const [endGameText, setEndGameText] = useState('')
   const [whoBust, setWhoBust] = useState('')
   const [blackJackStats, setBlackJackStats] = useState({})
+  const [error, setError] = useState('');
   
   const userStatsRef = doc(db, 'users', `${user?.uid}`)
 
   useEffect(() => {
-    if(user)
+    if(user.uid)
     { 
       onSnapshot(userStatsRef, (doc) => {
         setBlackJackStats({
@@ -62,7 +63,7 @@ const BlackJack = ({ changeShownGame }) => {
     return await res.json()
   }
 
-  const {refetch} = useQuery(['deal'], dealCards, {
+  const {refetch, isError} = useQuery(['deal'], dealCards, {
     refetchOnWindowFocus: false,
     onSuccess: async (d) => {
       setPlayerHand([d.cards[0], d.cards[1]])
@@ -75,9 +76,8 @@ const BlackJack = ({ changeShownGame }) => {
       if(d.remaining < 52){
         await shuffleCards()
       }
-    }
+    },
   })
-  
   const updatePlayerHand = (value) => {
     setPlayerHand(currentHand => [...currentHand, value])
   }
@@ -192,7 +192,7 @@ const BlackJack = ({ changeShownGame }) => {
         <p className={styles.stat}>Ties: <span className={styles.statTies}>{blackJackStats.ties}</span></p>
         <p className={styles.stat}>Total Games: <span className={styles.statTotalGames}>{blackJackStats.games}</span></p>
       </div>
-      
+      {error && <h1 className={styles.errorMessage}>{error}</h1>}
       {endGameText != '' ? (
         <EndGameModal 
           newGameClear={clearData} 
@@ -216,6 +216,7 @@ const BlackJack = ({ changeShownGame }) => {
               />
             </div>
           </div>
+          
           <div className='row-12'>
             <div className={`${styles.playerCard} col-12`} >
               <Player 

@@ -15,10 +15,18 @@ const Login = ({setError}) => {
     try{
       await logIn(data.email, data.password)
     } catch(err){
-      setError('Email or Password is Invalid')
+      setError(getSigninErrorMessageUiText(err.message))
     }
   }
   
+  const getSigninErrorMessageUiText = (errorMessage) => {
+    if(errorMessage === 'Firebase: Error (auth/user-not-found).'){
+      return 'Invalid email or password'
+    }
+    else {
+      return `Error: ${errorMessage}`
+    }
+  }
   
   return (
     <Form onSubmit={handleLogIn}>
