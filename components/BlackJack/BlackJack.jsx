@@ -54,7 +54,7 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   async function dealCards(){
-      const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/draw/?count=4')
+      const res = await fetch('https://www.deckofcardsapi.com/api/deck/rbmfq87prrh1/draw/?count=4')
       if(res.status != 200){
         setError('Error Fetching Cards')
       } else{
@@ -64,7 +64,7 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   async function shuffleCards(){
-    const res = await fetch('https://www.deckofcardsapi.com/api/deck/4qukdyp9mfw5/shuffle/')
+    const res = await fetch('https://www.deckofcardsapi.com/api/deck/rbmfq87prrh1/shuffle/')
     return await res.json()
   }
 
