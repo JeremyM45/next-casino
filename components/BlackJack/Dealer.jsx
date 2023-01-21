@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const Dealer = ({dealerHand, value, playerHandValue, updateHand, dealerState, handleDealerState}) => {
   async function getCard(){
-    const res = await fetch('https://www.deckofcardsapi.com/api/deck/rbmfq87prrh1/draw/?count=1')
+    const res = await fetch(`https://www.deckofcardsapi.com/api/deck/${process.env.NEXT_PUBLIC_REACT_DECK_ID}/draw/?count=1`)
     return await res.json()
   }
 

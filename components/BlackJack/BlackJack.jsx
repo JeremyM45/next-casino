@@ -54,12 +54,12 @@ const BlackJack = ({ changeShownGame }) => {
   }
 
   async function dealCards(){
-    const res = await fetch('https://www.deckofcardsapi.com/api/deck/rbmfq87prrh1/draw/?count=4')
+    const res = await fetch(`https://www.deckofcardsapi.com/api/deck/${process.env.NEXT_PUBLIC_REACT_DECK_ID}/draw/?count=4`)
     return await res.json()
   }
 
   async function shuffleCards(){
-    const res = await fetch('https://www.deckofcardsapi.com/api/deck/rbmfq87prrh1/shuffle/')
+    const res = await fetch(`https://www.deckofcardsapi.com/api/deck/${process.env.NEXT_PUBLIC_REACT_DECK_ID}/shuffle/`)
     return await res.json()
   }
 
